@@ -1,10 +1,17 @@
 projection;
 //strict ( 1 );
 use draft;
-define behavior for ZINN_C_APPLICATIONS //alias <alias_name>
+define behavior for ZINN_C_APPLICATIONS alias Applications
 use etag
 {
   use create;
   use update;
   use delete;
+}
+
+define behavior for ZINN_C_INSTALLATIONS alias Installations
+{
+use update;
+use delete;
+use association _applications;
 }

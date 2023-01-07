@@ -3,7 +3,7 @@
 define root view entity ZINN_I_APPLICATIONS as select from zinn_application
 //association [0..1] to ZINN_I_APPLICATIONSTEXT as _applicationstext
 //on $projection .applicationid = _applicationstext.Applicationid
-//composition of target_data_source_name as _association_name 
+composition [0..*] of ZINN_I_INSTALLATIONS as _installations 
 {
 
    // @ObjectModel.text.association: '_applicationstext' 
@@ -17,8 +17,9 @@ define root view entity ZINN_I_APPLICATIONS as select from zinn_application
     @Semantics.user.lastChangedBy: true
     lastchangedby as lastchangedby,
     @Semantics.systemDateTime.lastChangedAt: true
-    lastchangedat as lastchangedat
+    lastchangedat as lastchangedat,
     //_applicationstext 
+    _installations
    
 }
 //where _applicationstext.Spras =  $session .system_language

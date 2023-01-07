@@ -9,7 +9,8 @@ define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS
     createdby,
     createdat,
     lastchangedby,
-    lastchangedat
+    lastchangedat,
     /* Associations */
    // _applicationstext
+   _installations : redirected to composition child ZINN_C_INSTALLATIONS
 }

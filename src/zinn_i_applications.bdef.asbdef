@@ -2,7 +2,7 @@ managed implementation in class zbp_inn_i_applications unique;
 //strict ( 1 );
 with draft;
 
-define behavior for ZINN_I_APPLICATIONS // as applications
+define behavior for ZINN_I_APPLICATIONS  alias Applications
 with additional save
 draft table ZINN_APPDRAFT
 persistent table ZINN_APPLICATION
@@ -15,4 +15,19 @@ etag master lastchangedat
   create;
   update;
   delete;
+}
+
+define behavior for ZINN_I_INSTALLATIONS alias Installations
+with additional save
+draft table ZINN_INSTDRAFT
+persistent table ZINN_INSTALLS
+lock dependent by _applications
+authorization dependent by _applications
+etag master lastchangedat
+{
+  field ( readonly ) applicationid, customername;
+  //create;
+  update;
+  delete;
+  association _applications { }
 }
