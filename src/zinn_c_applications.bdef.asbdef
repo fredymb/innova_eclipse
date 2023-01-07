@@ -1,0 +1,10 @@
+projection;
+//strict ( 1 );
+use draft;
+define behavior for ZINN_C_APPLICATIONS //alias <alias_name>
+use etag
+{
+  use create;
+  use update;
+  use delete;
+}

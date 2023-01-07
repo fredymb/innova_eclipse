@@ -1,0 +1,46 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI: {
+headerInfo: {
+typeName: 'Application',
+typeNamePlural: 'Applications',
+title: {
+type: #STANDARD,
+value: 'applicationid' }
+}
+}
+annotate view ZINN_C_APPLICATIONS
+    with 
+{
+ @UI.facet: [{ id: 'Applications',
+purpose: #STANDARD,
+type: #IDENTIFICATION_REFERENCE ,
+label: 'Applications',
+position: 10 }
+]
+
+@UI: {
+lineItem: [{
+position: 10,
+importance: #HIGH }],
+identification: [{ position: 10 }]}
+@Search.defaultSearchElement: true
+applicationid;
+
+@UI: {
+lineItem: [{
+position: 20,
+importance: #HIGH }],
+identification: [{ position: 20 }]}
+@Search.defaultSearchElement: true
+applicationname;
+
+/*@UI: {
+lineItem: [{
+position: 30,
+importance: #HIGH }],
+identification: [{ position: 30 }]}
+@Search.defaultSearchElement: true
+applicationdesc;*/
+    
+}

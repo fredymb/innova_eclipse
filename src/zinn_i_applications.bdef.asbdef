@@ -1,0 +1,18 @@
+managed implementation in class zbp_inn_i_applications unique;
+//strict ( 1 );
+with draft;
+
+define behavior for ZINN_I_APPLICATIONS // as applications
+with additional save
+draft table ZINN_APPDRAFT
+persistent table ZINN_APPLICATION
+lock master
+total etag lastchangedat
+authorization master ( global, instance )
+etag master lastchangedat
+{
+  //field ( readonly ) applicationdesc;
+  create;
+  update;
+  delete;
+}
