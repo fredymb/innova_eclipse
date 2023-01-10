@@ -3,19 +3,32 @@
 @Metadata.allowExtensions: true
 define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     key Applicationid,
-    @ObjectModel.text.element: ['Customername']
+    @ObjectModel.text.element: ['Customername']    
     key Customerid,
-    key Environment,
-    Customername,
+    @Consumption.valueHelpDefinition: [{ entity:
+    {name: 'ZINN_I_ENVIRONMENT' , element: 'value_low'},
+     distinctValues: true
+    }]
+    key Environment,    
+    Customername,    
+    @Consumption.valueHelpDefinition: [{ entity:
+    {name: 'ZINN_I_INSTALLATIONTYPE' , element: 'value_low'},
+     distinctValues: true
+    }]
     Installationtype,
+    @Consumption.valueHelpDefinition: [{ entity:
+    {name: 'ZINN_I_INSTALLATIONSTATUS' , element: 'value_low'},
+     distinctValues: true
+    }]
     Installationstatus,
     Installationstart,
     Installationend,
     Createdby,
     Createdat,
     Lastchangedby,
-    Lastchangedat,
+    Lastchangedat,   
     /* Associations */
     _applications :  redirected to  parent ZINN_C_APPLICATIONS,
-    _customers
+    _customers,
+    Criticality
 }

@@ -16,8 +16,18 @@ annotate view ZINN_C_APPLICATIONS
 purpose: #STANDARD,
 type: #IDENTIFICATION_REFERENCE ,
 label: 'Applications',
-position: 10 }
+position: 10 },
+
+
+{ id : 'Installations',
+purpose: #STANDARD,
+type: #LINEITEM_REFERENCE,
+label: 'Installations',
+position: 20,targetElement:
+'_installations' }
+
 ]
+
 
 @UI: {
 lineItem: [{

@@ -1,0 +1,89 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI: {
+headerInfo: {
+typeName: 'Installation',
+typeNamePlural: 'Installations',
+title: {
+type: #STANDARD,
+value: 'Applicationid' }
+}
+}
+
+@UI.lineItem: [{criticality: 'Criticality'}] 
+
+annotate entity ZINN_C_INSTALLATIONS
+    with 
+{
+
+ @UI.facet: [{ id: 'Installations',
+purpose: #STANDARD,
+type: #IDENTIFICATION_REFERENCE ,
+label: 'Installations',
+position: 10 }
+]
+
+@UI: {
+lineItem: [{
+position: 10,
+importance: #HIGH }],
+identification: [{ position: 10 }]}
+@Consumption.valueHelpDefinition: [{ entity :
+{name: 'ZINN_I_CUSTOMERS', element: 'Customerid' } }]
+@Search.defaultSearchElement: true
+Customerid;
+    
+ @UI: {
+lineItem: [{
+position: 20,
+importance: #HIGH }],
+identification: [{ position: 20 }]}
+@Search.defaultSearchElement: true
+Customername;
+
+@UI: {
+lineItem: [{
+position: 30,
+importance: #HIGH }],
+identification: [{ position: 30 }]}
+@Search.defaultSearchElement: true
+Environment;
+
+@UI: {
+lineItem: [{
+position: 40,
+importance: #HIGH }],
+identification: [{ position: 40 }]}
+@Search.defaultSearchElement: true
+Installationtype;
+
+@UI: {
+lineItem: [{
+position: 50,
+importance: #MEDIUM },
+{ type: #FOR_ACTION, dataAction: 'ActivateInstallation', label:
+  'Activate' },
+{ type: #FOR_ACTION, dataAction: 'DeactivateInstallation', label:
+  'Deactivate' }
+],
+identification: [{ position: 50 }]}
+@Search.defaultSearchElement: true
+ Installationstatus;
+ 
+ @UI: {
+lineItem: [{
+position: 60,
+importance: #MEDIUM }],
+identification: [{ position: 60 }]}
+@Search.defaultSearchElement: true
+ Installationstart;
+ 
+ @UI: {
+lineItem: [{
+position: 70,
+importance: #MEDIUM }],
+identification: [{ position: 70 }]}
+@Search.defaultSearchElement: true
+Installationend;
+    
+}

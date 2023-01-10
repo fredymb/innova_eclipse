@@ -15,6 +15,7 @@ etag master lastchangedat
   create;
   update;
   delete;
+  association _installations { create; with draft;}
 }
 
 define behavior for ZINN_I_INSTALLATIONS alias Installations
@@ -25,9 +26,14 @@ lock dependent by _applications
 authorization dependent by _applications
 etag master lastchangedat
 {
-  field ( readonly ) applicationid, customername;
+  field ( readonly ) applicationid, customername, installationstatus;
   //create;
   update;
   delete;
   association _applications { }
+  determination defaultStatus on modify { create; update; }
+  action ( features : instance ) ActivateInstallation result [1]
+  $self;
+  action ( features : instance ) DeactivateInstallation result [1]
+  $self;
 }

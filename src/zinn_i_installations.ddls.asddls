@@ -24,5 +24,12 @@ on $projection.Customerid = _customers.Customerid
     @Semantics.systemDateTime.lastChangedAt: true
     lastchangedat as Lastchangedat,
     _applications, // Make association public
-    _customers
+    _customers,
+    case installationstatus
+    when ''  then 0  
+    when 'I' then 1  
+    when 'S' then 2     
+    when 'A' then 3
+    else 0
+    end as Criticality
 }
