@@ -12,13 +12,25 @@
      <SPRSL>E</SPRSL>
      <ARBGB>ZINNOVA</ARBGB>
      <MSGNR>001</MSGNR>
-     <TEXT>Installation &amp;  has been activated</TEXT>
+     <TEXT>Installation &amp;1  has been activated</TEXT>
     </T100>
     <T100>
      <SPRSL>E</SPRSL>
      <ARBGB>ZINNOVA</ARBGB>
      <MSGNR>002</MSGNR>
-     <TEXT>Installation &amp; has been deactivated</TEXT>
+     <TEXT>Installation &amp;1  has been deactivated</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZINNOVA</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Installation end  &amp;2 must be later than installation strart &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZINNOVA</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Installation start must be in the future</TEXT>
     </T100>
    </T100>
   </asx:values>

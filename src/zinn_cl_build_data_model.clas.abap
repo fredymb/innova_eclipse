@@ -23,12 +23,14 @@ DELETE from zinn_customers.
 DELETE FROM zinn_installs.
 DELETE FROM zinn_instdraft.
 
-INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applicationname = 'Intelligent Releases' createdby = sy-uname createdat = sy-datum
-                                                  lastchangedby = sy-uname lastchangedat = sy-datum )
-                                                ( APPLICATIONID = 'SIMP' applicationname = 'Planning Monitor' createdby = sy-uname createdat = sy-datum
-                                                  lastchangedby = sy-uname lastchangedat = sy-datum )
-                                                ( APPLICATIONID = 'SIMA' applicationname = 'Warehouse Monitor' createdby = sy-uname createdat = sy-datum
-                                                  lastchangedby = sy-uname lastchangedat = sy-datum )
+get TIME STAMP FIELD data(lv_timestampl).
+
+INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applicationname = 'Intelligent Releases' createdby = sy-uname createdat = lv_timestampl
+                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl )
+                                                ( APPLICATIONID = 'SIMP' applicationname = 'Planning Monitor' createdby = sy-uname createdat = lv_timestampl
+                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl )
+                                                ( APPLICATIONID = 'SIMA' applicationname = 'Warehouse Monitor' createdby = sy-uname createdat = lv_timestampl
+                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl )
  ) ).
 
  INSERT zinn_apptext FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' spras = 'E' APPLICATIONDESC = 'Intelligent Releases' )
@@ -47,7 +49,7 @@ INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applica
 
  INSERT zinn_installs FROM TABLE @( value #( ( APPLICATIONID = 'SILI' CUSTOMERID = '001' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
                                                INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
-                                               CREATEDBY = SY-UNAME CREATEDAT = SY-DATUM LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = SY-DATUM )
+                                               CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl )
 
  ) ).
 

@@ -14,6 +14,8 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys REQUEST requested_authorizations FOR Installations RESULT result.
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       REQUEST requested_authorizations FOR Installations RESULT result.
+    METHODS validateDates FOR VALIDATE ON SAVE
+      IMPORTING keys FOR Installations~validateDates.
 
 ENDCLASS.
 
@@ -21,11 +23,15 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD defaultStatus.
 
+  data lv_installationend type zinn_e_installationend.
+
   READ ENTITIES OF zinn_i_applications
     ENTITY Installations
-    FIELDS ( installationstatus )
+    FIELDS ( installationstatus installationstart installationend )
     WITH CORRESPONDING #( keys )
     RESULT DATA(lt_installations).
+
+   lv_installationend = cl_abap_context_info=>get_system_date( ) + 365.
 
    LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<fs_installations>) WHERE installationstatus IS INITIAL.
     MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
@@ -35,7 +41,11 @@ CLASS lhc_installations IMPLEMENTATION.
                     %tky = <fs_installations>-%tky
                     %pky = <fs_installations>-%pky
                     installationstatus = 'A'
-                    %control-installationstatus = if_abap_behv=>mk-on ) ) REPORTED data(reportedmodify).
+                    installationstart = cl_abap_context_info=>get_system_date( )
+                    installationend = lv_installationend
+                    %control-installationstatus = if_abap_behv=>mk-on
+                    %control-installationstart = if_abap_behv=>mk-on
+                    %control-installationend = if_abap_behv=>mk-on  ) ) REPORTED data(reportedmodify).
    ENDLOOP.
 
 
@@ -156,6 +166,55 @@ LOOP AT keys ASSIGNING FIELD-SYMBOL(<ls_keys>).
 
   result-%action-ActivateInstallation = if_abap_behv=>auth-allowed.
   result-%action-DeactivateInstallation = if_abap_behv=>auth-allowed.
+
+  ENDMETHOD.
+
+  METHOD validateDates.
+
+  READ ENTITY zinn_i_applications\\Installations
+    FIELDS ( installationstart installationend )
+    WITH VALUE #( FOR <row_key> IN keys ( %key = <row_key>-%key ) )
+    RESULT DATA(lt_installations).
+
+    LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
+
+      IF <fs_installations>-installationend LT <fs_installations>-installationstart.
+
+        APPEND VALUE #( %key = <fs_installations>-%key
+                        applicationid = <fs_installations>-applicationid
+                        customerid = <fs_installations>-customerid
+                        environment = <fs_installations>-environment ) TO failed-installations.
+
+        APPEND VALUE #( %key = <fs_installations>-%key
+        %msg = new_message( id = 'ZINNOVA'
+                            number = '003'
+                            v1 = <fs_installations>-installationstart
+                            v2 = <fs_installations>-installationend
+                            v3 = |{ <fs_installations>-customername } '-' { <fs_installations>-environment }|
+                           severity = if_abap_behv_message=>severity-error )
+        %element-installationstart = if_abap_behv=>mk-on
+        %element-installationend =  if_abap_behv=>mk-on ) TO reported-installations.
+
+*      ELSEIF <fs_installations>-installationstart < cl_abap_context_info=>get_system_date( ). "Installation Start must be in the future
+*
+*        APPEND VALUE #( %key = <fs_installations>-%key
+*                        applicationid = <fs_installations>-applicationid
+*                        customerid = <fs_installations>-customerid
+*                        environment = <fs_installations>-environment ) TO failed-installations.
+*
+*        APPEND VALUE #( %key = <fs_installations>-%key
+*        %msg = new_message( id = 'ZINNOVA'
+*                            number = '004'
+*                            v1 = <fs_installations>-installationstart
+*                            v2 = <fs_installations>-installationend
+*                            v3 = |{ <fs_installations>-customername } '-' { <fs_installations>-environment }|
+*                           severity = if_abap_behv_message=>severity-error )
+*        %element-installationstart = if_abap_behv=>mk-on
+*        %element-installationend =  if_abap_behv=>mk-on ) TO reported-installations.
+
+      ENDIF.
+
+    ENDLOOP.
 
   ENDMETHOD.
 

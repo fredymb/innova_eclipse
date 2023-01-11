@@ -85,5 +85,18 @@ importance: #MEDIUM }],
 identification: [{ position: 70 }]}
 @Search.defaultSearchElement: true
 Installationend;
+
+ @UI: {
+lineItem: [{
+position: 80,
+importance: #MEDIUM,
+type: #WITH_URL,
+url: 'Installationurl' }],
+identification: [{ position: 80,
+type: #WITH_URL,
+url: 'Installationurl'
+ }]}
+@Search.defaultSearchElement: true
+Installationurl;
     
 }

@@ -31,6 +31,7 @@ etag master lastchangedat
   update;
   delete;
   association _applications { }
+  validation validateDates on save  { create;update;  field installationstart, installationend; }
   determination defaultStatus on modify { create; update; }
   action ( features : instance ) ActivateInstallation result [1]
   $self;

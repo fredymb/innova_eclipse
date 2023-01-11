@@ -23,6 +23,7 @@ define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     Installationstatus,
     Installationstart,
     Installationend,
+    Installationurl,
     Createdby,
     Createdat,
     Lastchangedby,
@@ -31,4 +32,5 @@ define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     _applications :  redirected to  parent ZINN_C_APPLICATIONS,
     _customers,
     Criticality
+       
 }

@@ -15,6 +15,7 @@ on $projection.Customerid = _customers.Customerid
     installationstatus as Installationstatus,
     installationstart as Installationstart,
     installationend as Installationend,
+    installationurl as Installationurl,
     @Semantics.user.createdBy: true
     createdby as Createdby,
      @Semantics.systemDateTime.createdAt: true

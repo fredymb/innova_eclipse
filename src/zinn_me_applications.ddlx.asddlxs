@@ -45,11 +45,19 @@ identification: [{ position: 20 }]}
 @Search.defaultSearchElement: true
 applicationname;
 
-/*@UI: {
+@UI: {
 lineItem: [{
 position: 30,
 importance: #HIGH }],
 identification: [{ position: 30 }]}
+@Search.defaultSearchElement: true
+Installationsactives;
+
+/*@UI: {
+lineItem: [{
+position: 40,
+importance: #HIGH }],
+identification: [{ position: 40 }]}
 @Search.defaultSearchElement: true
 applicationdesc;*/
     
