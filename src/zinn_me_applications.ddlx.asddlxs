@@ -9,6 +9,7 @@ type: #STANDARD,
 value: 'applicationid' }
 }
 }
+
 annotate view ZINN_C_APPLICATIONS
     with 
 {
@@ -27,7 +28,6 @@ position: 20,targetElement:
 '_installations' }
 
 ]
-
 
 @UI: {
 lineItem: [{

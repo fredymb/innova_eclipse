@@ -57,6 +57,8 @@ COMMIT WORK AND WAIT.
 
 out->write( 'DONE!' ).
 
+*call function 'ZINN_F_CALL_ODATA_INITIALIZE'.
+
 catch cx_root.
 
 out->write( 'ERROR!' ).

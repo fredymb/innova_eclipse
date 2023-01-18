@@ -62,9 +62,9 @@ lineItem: [{
 position: 50,
 importance: #MEDIUM },
 { type: #FOR_ACTION, dataAction: 'ActivateInstallation', label:
-  'Activate' },
+  'Activate', invocationGrouping: #CHANGE_SET },
 { type: #FOR_ACTION, dataAction: 'DeactivateInstallation', label:
-  'Deactivate' }
+  'Deactivate', invocationGrouping: #CHANGE_SET }
 ],
 identification: [{ position: 50 }]}
 @Search.defaultSearchElement: true
