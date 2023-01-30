@@ -11,7 +11,8 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_installations_actives IMPLEMENTATION.
+CLASS ZINN_CL_INSTALLATIONS_ACTIVES IMPLEMENTATION.
+
 
   METHOD if_sadl_exit_calc_element_read~calculate.
 
@@ -49,6 +50,7 @@ CLASS zinn_cl_installations_actives IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD if_sadl_exit_calc_element_read~get_calculation_info.
 
    IF iv_entity = 'ZINN_C_APPLICATIONS'.
@@ -63,5 +65,4 @@ CLASS zinn_cl_installations_actives IMPLEMENTATION.
 
 
   ENDMETHOD.
-
 ENDCLASS.

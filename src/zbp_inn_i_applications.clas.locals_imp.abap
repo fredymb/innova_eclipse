@@ -23,45 +23,45 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD defaultStatus.
 
-  data lv_installationend type zinn_e_installationend.
+    DATA lv_installationend TYPE zinn_e_installationend.
 
-  READ ENTITIES OF zinn_i_applications
-    ENTITY Installations
-    FIELDS ( installationstatus installationstart installationend )
-    WITH CORRESPONDING #( keys )
-    RESULT DATA(lt_installations).
+    READ ENTITIES OF zinn_i_applications
+      ENTITY Installations
+      FIELDS ( installationstatus installationstart installationend )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_installations).
 
-   lv_installationend = cl_abap_context_info=>get_system_date( ) + 365.
+    lv_installationend = cl_abap_context_info=>get_system_date( ) + 365.
 
-   LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<fs_installations>) WHERE installationstatus IS INITIAL.
-    MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
-    ENTITY Installations
-    UPDATE FIELDS ( installationstatus )
-    WITH VALUE #( ( %key = <fs_installations>-%key
-                    %tky = <fs_installations>-%tky
-                    %pky = <fs_installations>-%pky
-                    installationstatus = 'A'
-                    installationstart = cl_abap_context_info=>get_system_date( )
-                    installationend = lv_installationend
-                    %control-installationstatus = if_abap_behv=>mk-on
-                    %control-installationstart = if_abap_behv=>mk-on
-                    %control-installationend = if_abap_behv=>mk-on  ) ) REPORTED data(reportedmodify).
-   ENDLOOP.
+    LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<fs_installations>) WHERE installationstatus IS INITIAL.
+      MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY Installations
+      UPDATE FIELDS ( installationstatus )
+      WITH VALUE #( ( %key = <fs_installations>-%key
+                      %tky = <fs_installations>-%tky
+                      %pky = <fs_installations>-%pky
+                      installationstatus = 'A'
+                      installationstart = cl_abap_context_info=>get_system_date( )
+                      installationend = lv_installationend
+                      %control-installationstatus = if_abap_behv=>mk-on
+                      %control-installationstart = if_abap_behv=>mk-on
+                      %control-installationend = if_abap_behv=>mk-on  ) ) REPORTED DATA(reportedmodify).
+    ENDLOOP.
 
 
   ENDMETHOD.
 
   METHOD ActivateInstallation.
 
-  modify entities of zinn_i_applications in local mode
-    entity Installations
-    update fields ( installationstatus )
-    with value #( for key_row in keys ( applicationid = key_row-applicationid
-                                        customerid = key_row-customerid
-                                        environment = key_row-environment
-                                        installationstatus  = 'A' ) ) " Active
-    failed failed
-    reported reported.
+    MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+       ENTITY Installations
+       UPDATE FIELDS ( installationstatus )
+       WITH VALUE #( FOR key_row IN keys ( applicationid = key_row-applicationid
+                                           customerid = key_row-customerid
+                                           environment = key_row-environment
+                                           installationstatus  = 'A' ) ) " Active
+       FAILED failed
+       REPORTED reported.
 
     READ ENTITIES OF zinn_i_applications IN LOCAL MODE
     ENTITY Installations
@@ -76,7 +76,7 @@ CLASS lhc_installations IMPLEMENTATION.
                                                    %param = ls_installations ) ).
 
     LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<ls_installations>).
-    data(lv_installation) = |{ <ls_installations>-customername } - { <ls_installations>-environment }|.
+      DATA(lv_installation) = |{ <ls_installations>-customername } - { <ls_installations>-environment }|.
       APPEND VALUE #( applicationid = <ls_installations>-applicationid
       %msg = new_message( id = 'ZINNOVA'
              number = '001'
@@ -89,15 +89,15 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD DeactivateInstallation.
 
-  modify entities of zinn_i_applications in local mode
-    entity Installations
-    update fields ( installationstatus )
-    with value #( for key_row in keys ( applicationid = key_row-applicationid
-                                        customerid = key_row-customerid
-                                        environment = key_row-environment
-                                        installationstatus  = 'I' ) ) " Inactive
-    failed failed
-    reported reported.
+    MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY Installations
+      UPDATE FIELDS ( installationstatus )
+      WITH VALUE #( FOR key_row IN keys ( applicationid = key_row-applicationid
+                                          customerid = key_row-customerid
+                                          environment = key_row-environment
+                                          installationstatus  = 'I' ) ) " Inactive
+      FAILED failed
+      REPORTED reported.
 
     READ ENTITIES OF zinn_i_applications IN LOCAL MODE
     ENTITY Installations
@@ -112,7 +112,7 @@ CLASS lhc_installations IMPLEMENTATION.
                                                    %param = ls_installations ) ).
 
     LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<ls_installations>).
-    data(lv_installation) = |{ <ls_installations>-customername } - { <ls_installations>-environment }|.
+      DATA(lv_installation) = |{ <ls_installations>-customername } - { <ls_installations>-environment }|.
       APPEND VALUE #( applicationid = <ls_installations>-applicationid
       %msg = new_message( id = 'ZINNOVA'
              number = '002'
@@ -125,11 +125,11 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD get_features.
 
-  READ ENTITIES OF zinn_i_applications
-    ENTITY Installations
-    FIELDS ( applicationid customerid environment installationstatus )
-    WITH VALUE #( FOR key_row IN keys ( %key = key_row-%key ) )
-    RESULT DATA(lt_installations).
+    READ ENTITIES OF zinn_i_applications
+      ENTITY Installations
+      FIELDS ( applicationid customerid environment installationstatus )
+      WITH VALUE #( FOR key_row IN keys ( %key = key_row-%key ) )
+      RESULT DATA(lt_installations).
 
     result = VALUE #( FOR ls_installations IN lt_installations (
                             %key = ls_installations-%key
@@ -149,7 +149,7 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
 
-LOOP AT keys ASSIGNING FIELD-SYMBOL(<ls_keys>).
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<ls_keys>).
 
       APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<ls_result>).
 
@@ -164,17 +164,17 @@ LOOP AT keys ASSIGNING FIELD-SYMBOL(<ls_keys>).
 
   METHOD get_global_authorizations.
 
-  result-%action-ActivateInstallation = if_abap_behv=>auth-allowed.
-  result-%action-DeactivateInstallation = if_abap_behv=>auth-allowed.
+    result-%action-ActivateInstallation = if_abap_behv=>auth-allowed.
+    result-%action-DeactivateInstallation = if_abap_behv=>auth-allowed.
 
   ENDMETHOD.
 
   METHOD validateDates.
 
-  READ ENTITY zinn_i_applications\\Installations
-    FIELDS ( installationstart installationend )
-    WITH VALUE #( FOR <row_key> IN keys ( %key = <row_key>-%key ) )
-    RESULT DATA(lt_installations).
+    READ ENTITY zinn_i_applications\\Installations
+      FIELDS ( installationstart installationend )
+      WITH VALUE #( FOR <row_key> IN keys ( %key = <row_key>-%key ) )
+      RESULT DATA(lt_installations).
 
     LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
 
@@ -226,11 +226,11 @@ CLASS lhc_ZINN_I_APPLICATIONS DEFINITION INHERITING FROM cl_abap_behavior_handle
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       IMPORTING keys REQUEST requested_authorizations FOR Applications RESULT result.
 
-   METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      REQUEST requested_authorizations FOR Applications RESULT result.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+       REQUEST requested_authorizations FOR Applications RESULT result.
 
-   METHODS get_features FOR FEATURES IMPORTING keys REQUEST
-    requested_features FOR  Applications RESULT result.
+    METHODS get_features FOR FEATURES IMPORTING keys REQUEST
+     requested_features FOR  Applications RESULT result.
 
 ENDCLASS.
 
@@ -238,7 +238,7 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
 
-  LOOP AT keys ASSIGNING FIELD-SYMBOL(<ls_keys>).
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<ls_keys>).
 
       APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<ls_result>).
 
@@ -264,9 +264,9 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
 *      IF is_update_allowed( ) = abap_true.
 
 *       update result with EDIT Allowed
-        result-%create = if_abap_behv=>auth-allowed.
-        result-%update = if_abap_behv=>auth-allowed.
-        result-%action-Edit = if_abap_behv=>auth-allowed.
+      result-%create = if_abap_behv=>auth-allowed.
+      result-%update = if_abap_behv=>auth-allowed.
+      result-%action-Edit = if_abap_behv=>auth-allowed.
 
 *      ELSE.
 
@@ -282,11 +282,11 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
 
   METHOD get_features.
 
-  READ ENTITIES OF zinn_i_applications
-    ENTITY Applications
-    all fields
-    WITH VALUE #( FOR key_row IN keys ( %key = key_row-%key ) )
-    RESULT DATA(lt_applications).
+    READ ENTITIES OF zinn_i_applications
+      ENTITY Applications
+      ALL FIELDS
+      WITH VALUE #( FOR key_row IN keys ( %key = key_row-%key ) )
+      RESULT DATA(lt_applications).
 
     result = VALUE #( FOR ls_applications IN lt_applications (
                             %key = ls_applications-%key

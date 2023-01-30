@@ -11,7 +11,8 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_build_data_model IMPLEMENTATION.
+CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
+
 
 METHOD if_oo_adt_classrun~main.
 
@@ -50,6 +51,12 @@ INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applica
  INSERT zinn_installs FROM TABLE @( value #( ( APPLICATIONID = 'SILI' CUSTOMERID = '001' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
                                                INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
                                                CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl )
+                                             ( APPLICATIONID = 'SILI' CUSTOMERID = '002' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
+                                               INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
+                                               CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl )
+                                             ( APPLICATIONID = 'SILI' CUSTOMERID = '003' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'ONPREM'
+                                               INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
+                                               CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl )
 
  ) ).
 
@@ -66,5 +73,4 @@ out->write( 'ERROR!' ).
 endtry.
 
 ENDMETHOD.
-
 ENDCLASS.
