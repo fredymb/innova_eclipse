@@ -47,6 +47,13 @@ applicationname;
 
 @UI: {
 lineItem: [{
+position: 25,
+importance: #HIGH }],
+identification: [{ position: 25 }]}
+applicationguide;
+
+@UI: {
+lineItem: [{
 position: 30,
 importance: #HIGH }],
 identification: [{ position: 30 }]}

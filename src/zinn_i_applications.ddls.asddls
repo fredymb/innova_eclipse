@@ -10,6 +10,9 @@ composition [0..*] of ZINN_I_INSTALLATIONS as _installations
     key applicationid as applicationid,
     applicationname,
     //_applicationstext.Applicationdesc,
+    applicationguide,
+    mimetype,    
+    filename,
     @Semantics.user.createdBy: true
     createdby as createdby,
     @Semantics.systemDateTime.createdAt: true

@@ -6,6 +6,15 @@ define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS
  //   @ObjectModel.text.element: ['Applicationdesc']
     key applicationid,
     applicationname,
+    
+    @Semantics.largeObject: { 
+    mimeType: 'mimetype',
+    fileName: 'filename',
+    contentDispositionPreference: #INLINE
+    }
+    applicationguide,
+    mimetype,
+    filename,
  //   Applicationdesc,
     createdby,
     createdat,
