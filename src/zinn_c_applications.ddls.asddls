@@ -10,7 +10,8 @@ define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS
     @Semantics.largeObject: { 
     mimeType: 'mimetype',
     fileName: 'filename',
-    contentDispositionPreference: #INLINE
+    contentDispositionPreference: #INLINE,
+    acceptableMimeTypes: ['application/pdf', 'text/plain']
     }
     applicationguide,
     mimetype,
