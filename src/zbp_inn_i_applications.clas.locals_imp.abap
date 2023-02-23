@@ -16,6 +16,8 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
       REQUEST requested_authorizations FOR Installations RESULT result.
     METHODS validateDates FOR VALIDATE ON SAVE
       IMPORTING keys FOR Installations~validateDates.
+    METHODS defaultUrl FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR Installations~defaultUrl.
 
 ENDCLASS.
 
@@ -218,6 +220,33 @@ CLASS lhc_installations IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD defaultUrl.
+
+    DATA lv_installationend TYPE zinn_e_installationend.
+
+    READ ENTITIES OF zinn_i_applications
+      ENTITY Installations
+      FIELDS ( installationtype installationurl )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_installations).
+
+    LOOP AT lt_installations ASSIGNING FIELD-SYMBOL(<fs_installations>) WHERE installationtype IS NOT INITIAL.
+      MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY Installations
+      UPDATE FIELDS ( installationurl )
+      WITH VALUE #( ( %key = <fs_installations>-%key
+                      %tky = <fs_installations>-%tky
+                      %pky = <fs_installations>-%pky
+                      installationurl = SWITCH #( <fs_installations>-installationtype
+                                                   WHEN 'FIORI' THEN '/sap/opu/odata/'
+                                                   WHEN 'ONPREM' THEN '/sap/bc/srt/wsdl/'
+                                                   WHEN 'SAaS' THEN '/sap/bc/srt/wsdl/' )
+                      %control-installationurl = if_abap_behv=>mk-on ) ) REPORTED DATA(reportedmodify).
+    ENDLOOP.
+
+
+  ENDMETHOD.
+
 ENDCLASS.
 
 CLASS lhc_ZINN_I_APPLICATIONS DEFINITION INHERITING FROM cl_abap_behavior_handler.
@@ -231,6 +260,8 @@ CLASS lhc_ZINN_I_APPLICATIONS DEFINITION INHERITING FROM cl_abap_behavior_handle
 
     METHODS get_features FOR FEATURES IMPORTING keys REQUEST
      requested_features FOR  Applications RESULT result.
+    METHODS aboutapp FOR MODIFY
+      IMPORTING keys FOR ACTION applications~aboutapp.
 
 ENDCLASS.
 
@@ -247,6 +278,7 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
                              %op-%update = if_abap_behv=>auth-allowed
                              %delete      = if_abap_behv=>auth-allowed
                              %action-edit = if_abap_behv=>auth-allowed
+                             %action-aboutapp = if_abap_behv=>auth-allowed
                              ).
 
     ENDLOOP.
@@ -267,6 +299,7 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
       result-%create = if_abap_behv=>auth-allowed.
       result-%update = if_abap_behv=>auth-allowed.
       result-%action-Edit = if_abap_behv=>auth-allowed.
+      result-%action-aboutapp = if_abap_behv=>auth-allowed.
 
 *      ELSE.
 
@@ -292,6 +325,25 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
                             %key = ls_applications-%key
                             applicationid = if_abap_behv=>fc-f-read_only
                              ) ).
+
+  ENDMETHOD.
+
+  METHOD aboutapp.
+
+  READ ENTITIES OF zinn_i_applications
+      ENTITY applications
+      FIELDS ( applicationid )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_applications).
+
+DATA(ls_applications) = lt_applications[ 1 ].
+
+APPEND VALUE #( applicationid = ls_applications-applicationid
+      %msg = new_message( id = 'ZINNOVA'
+             number = '005'
+             v1 = ls_applications-applicationid
+            severity = if_abap_behv_message=>severity-information )
+       ) TO reported-applications.
 
   ENDMETHOD.
 

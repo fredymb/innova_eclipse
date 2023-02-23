@@ -32,7 +32,10 @@ position: 20,targetElement:
 @UI: {
 lineItem: [{
 position: 10,
-importance: #HIGH }],
+importance: #HIGH },
+{ type: #FOR_ACTION, dataAction: 'aboutapp', label:
+  'About', invocationGrouping: #CHANGE_SET }
+],
 identification: [{ position: 10 }]}
 @Search.defaultSearchElement: true
 applicationid;

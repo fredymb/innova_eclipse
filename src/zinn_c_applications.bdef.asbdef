@@ -1,5 +1,6 @@
 projection;
 //strict ( 1 );
+//use side effects;
 use draft;
 define behavior for ZINN_C_APPLICATIONS alias Applications
 use etag
@@ -7,6 +8,7 @@ use etag
   use create;
   use update;
   use delete;
+  use action aboutapp;
   use association _installations{ create; }
 }
 

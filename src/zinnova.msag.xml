@@ -32,6 +32,12 @@
      <MSGNR>004</MSGNR>
      <TEXT>Installation start must be in the future</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZINNOVA</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>About &amp;1</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

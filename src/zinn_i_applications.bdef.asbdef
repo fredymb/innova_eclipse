@@ -15,6 +15,7 @@ etag master lastchangedat
   create;
   update;
   delete;
+  action aboutapp;
   association _installations { create; with draft;}
 }
 
@@ -33,6 +34,11 @@ etag master lastchangedat
   association _applications { }
   validation validateDates on save  { create;update;  field installationstart, installationend; }
   determination defaultStatus on modify { create; update; }
+  //side effects
+  //{
+  //  field installationtype affects field installationurl;
+  //}
+  determination defaultUrl on modify { field installationtype; }
   action ( features : instance ) ActivateInstallation result [1]
   $self;
   action ( features : instance ) DeactivateInstallation result [1]
