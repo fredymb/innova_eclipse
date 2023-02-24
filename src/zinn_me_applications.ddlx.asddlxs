@@ -31,6 +31,13 @@ position: 20,targetElement:
 
 @UI: {
 lineItem: [{
+position: 5,
+importance: #HIGH }],
+identification: [{ position: 5 }]}
+applicationimage;
+
+@UI: {
+lineItem: [{
 position: 10,
 importance: #HIGH },
 { type: #FOR_ACTION, dataAction: 'aboutapp', label:
@@ -54,6 +61,7 @@ position: 25,
 importance: #HIGH }],
 identification: [{ position: 25 }]}
 applicationguide;
+
 
 @UI: {
 lineItem: [{

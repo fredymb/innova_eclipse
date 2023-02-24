@@ -11,6 +11,7 @@ composition [0..*] of ZINN_I_INSTALLATIONS as _installations
     applicationname,
     //_applicationstext.Applicationdesc,
     applicationguide,
+    applicationimage,
     mimetype,    
     filename,
     @Semantics.user.createdBy: true

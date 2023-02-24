@@ -27,11 +27,14 @@ DELETE FROM zinn_instdraft.
 get TIME STAMP FIELD data(lv_timestampl).
 
 INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applicationname = 'Intelligent Releases' createdby = sy-uname createdat = lv_timestampl
-                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl )
+                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                  applicationimage = 'https://www.innovainternacional.biz/static/f5843731c15bf0f6e336eab3ca8ab622/0dab9/SiLI_Slide_1_Home.webp' )
                                                 ( APPLICATIONID = 'SIMP' applicationname = 'Planning Monitor' createdby = sy-uname createdat = lv_timestampl
-                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl )
+                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                  applicationimage = 'https://www.innovainternacional.biz/static/a931683ac348f282ed052dbaab1a1b40/a66aa/1_SiMPL_Home.webp' )
                                                 ( APPLICATIONID = 'SIMA' applicationname = 'Warehouse Monitor' createdby = sy-uname createdat = lv_timestampl
-                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl )
+                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                  applicationimage = 'https://www.innovainternacional.biz/static/3008c6e5c73504c58ff62c7c4a11aa61/a6c4b/1_SiMA_Login.webp' )
  ) ).
 
  INSERT zinn_apptext FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' spras = 'E' APPLICATIONDESC = 'Intelligent Releases' )

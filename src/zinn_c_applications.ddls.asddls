@@ -14,6 +14,8 @@ define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS
     acceptableMimeTypes: ['application/pdf', 'text/plain']    
     }
     applicationguide,
+    @Semantics.imageUrl: true
+    applicationimage,
     mimetype,
     filename,
  //   Applicationdesc,
