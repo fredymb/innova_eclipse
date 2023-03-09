@@ -9,7 +9,8 @@ type: #STANDARD,
 value: 'applicationid' }
 }
 }
-
+ 
+ 
 annotate view ZINN_C_APPLICATIONS
     with 
 {
@@ -25,8 +26,14 @@ purpose: #STANDARD,
 type: #LINEITEM_REFERENCE,
 label: 'Installations',
 position: 20,targetElement:
-'_installations' }
+'_installations' }//,
 
+/*{ id : 'idChart' ,
+  type: #CHART_REFERENCE ,
+  label : 'Chart',
+  targetElement: '_installations',
+  position: 30 }*/
+  
 ]
 
 @UI: {

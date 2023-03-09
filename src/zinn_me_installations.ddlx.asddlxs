@@ -10,6 +10,14 @@ value: 'Applicationid' }
 }
 }
 
+@UI.chart: [{
+    title: 'Training',
+    description: 'Training' ,
+    chartType: #COLUMN,
+    dimensions: ['Customerid', 'Environment'],
+    measures: ['Traininghours']
+}]
+
 @UI.lineItem: [{criticality: 'Criticality'}] 
 
 annotate entity ZINN_C_INSTALLATIONS
@@ -99,5 +107,13 @@ url: 'Installationurl'
  }]}
 @Search.defaultSearchElement: true
 Installationurl;
+
+ @UI: {
+lineItem: [{
+position: 90,
+importance: #MEDIUM }],
+identification: [{ position: 90 }]}
+@Search.defaultSearchElement: true
+Traininghours;
     
 }

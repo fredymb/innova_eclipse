@@ -1,6 +1,7 @@
 @EndUserText.label: 'Installations'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @Metadata.allowExtensions: true
+
 define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     key Applicationid,
     @ObjectModel.text.element: ['Customername']    
@@ -24,6 +25,7 @@ define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     Installationstart,
     Installationend,
     Installationurl,
+    Traininghours,
     Createdby,
     Createdat,
     Lastchangedby,

@@ -1,5 +1,6 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Installations'
+
 define view entity ZINN_I_INSTALLATIONS as select from zinn_installs
 association to parent ZINN_I_APPLICATIONS as _applications
 on $projection.Applicationid = _applications.applicationid
@@ -16,6 +17,7 @@ on $projection.Customerid = _customers.Customerid
     installationstart as Installationstart,
     installationend as Installationend,
     installationurl as Installationurl,
+    traininghours as Traininghours,
     @Semantics.user.createdBy: true
     createdby as Createdby,
      @Semantics.systemDateTime.createdAt: true
