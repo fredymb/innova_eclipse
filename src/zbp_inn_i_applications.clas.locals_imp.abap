@@ -286,17 +286,31 @@ LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_key>).
     ev_response =  lv_response
     ev_error =  lv_error.
 
-     IF lv_response is not initial.
+
+
+      IF lv_response is not initial.
+      cl_message_helper=>set_msg_vars_for_clike( lv_response ).
       APPEND VALUE #( applicationid = <ls_installations>-applicationid
-      %msg = new_message_with_text( text = lv_response
-                                    severity = if_abap_behv_message=>severity-information )
+        %msg = new_message( id = 'ZINNOVA'
+             number = '006'
+             v1 = sy-msgv1
+             v2 = sy-msgv2
+             v3 = sy-msgv3
+             v4 = sy-msgv4
+            severity = if_abap_behv_message=>severity-information )
        ) TO reported-installations.
       endif.
 
     if lv_error is not initial.
+       cl_message_helper=>set_msg_vars_for_clike( lv_error ).
       APPEND VALUE #( applicationid = <ls_installations>-applicationid
-      %msg = new_message_with_text( text = lv_error
-                                    severity = if_abap_behv_message=>severity-error )
+        %msg = new_message( id = 'ZINNOVA'
+             number = '006'
+             v1 = sy-msgv1
+             v2 = sy-msgv2
+             v3 = sy-msgv3
+             v4 = sy-msgv4
+            severity = if_abap_behv_message=>severity-information )
        ) TO reported-installations.
 
       APPEND VALUE #( %key = <fs_key>-%key
