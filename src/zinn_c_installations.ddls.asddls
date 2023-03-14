@@ -25,6 +25,7 @@ define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     Installationstart,
     Installationend,
     Installationurl,
+    Serviceurl,
     Traininghours,
     Createdby,
     Createdat,

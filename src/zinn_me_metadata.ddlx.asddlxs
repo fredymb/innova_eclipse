@@ -1,0 +1,11 @@
+@Metadata.layer: #CORE
+annotate entity ZINN_I_METADATA
+    with 
+{
+   @EndUserText.label: 'Enter Username'
+    username;
+    
+    @EndUserText.label: 'Enter Password:'
+    password;
+    
+}

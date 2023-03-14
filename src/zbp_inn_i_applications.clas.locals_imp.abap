@@ -18,6 +18,8 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys FOR Installations~validateDates.
     METHODS defaultUrl FOR DETERMINE ON MODIFY
       IMPORTING keys FOR Installations~defaultUrl.
+    METHODS Metadata FOR MODIFY
+      IMPORTING keys FOR ACTION Installations~Metadata RESULT result.
 
 ENDCLASS.
 
@@ -145,7 +147,8 @@ CLASS lhc_installations IMPLEMENTATION.
                             %action-DeactivateInstallation = COND #( WHEN
                             ls_installations-installationstatus = 'I'
                             THEN if_abap_behv=>fc-o-disabled
-                            ELSE if_abap_behv=>fc-o-enabled ) ) ).
+                            ELSE if_abap_behv=>fc-o-enabled )
+                            %action-Metadata = if_abap_behv=>fc-o-enabled ) ).
 
   ENDMETHOD.
 
@@ -158,6 +161,7 @@ CLASS lhc_installations IMPLEMENTATION.
       <ls_result> = VALUE #( %key = <ls_keys>-%key
                              %action-ActivateInstallation = if_abap_behv=>auth-allowed
                              %action-DeactivateInstallation = if_abap_behv=>auth-allowed
+                             %action-Metadata = if_abap_behv=>auth-allowed
                             ).
 
     ENDLOOP.
@@ -168,6 +172,7 @@ CLASS lhc_installations IMPLEMENTATION.
 
     result-%action-ActivateInstallation = if_abap_behv=>auth-allowed.
     result-%action-DeactivateInstallation = if_abap_behv=>auth-allowed.
+    result-%action-Metadata = if_abap_behv=>auth-allowed.
 
   ENDMETHOD.
 
@@ -243,6 +248,70 @@ CLASS lhc_installations IMPLEMENTATION.
                                                    WHEN 'SAaS' THEN '/sap/bc/srt/wsdl/' )
                       %control-installationurl = if_abap_behv=>mk-on ) ) REPORTED DATA(reportedmodify).
     ENDLOOP.
+
+
+  ENDMETHOD.
+
+  METHOD Metadata.
+
+  data: lv_response TYPE string,
+        lv_error TYPE string.
+
+DATA(lt_keys) = keys.
+
+   READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+    ENTITY Installations
+    ALL FIELDS WITH VALUE #( FOR key_row IN keys ( applicationid = key_row-applicationid
+                                                   customerid = key_row-customerid
+                                                   environment = key_row-environment ) )
+    RESULT DATA(lt_installations).
+
+
+
+LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_key>).
+
+    read table lt_installations ASSIGNING FIELD-SYMBOL(<ls_installations>) with key applicationid = <fs_key>-Applicationid
+                                                                                    customerid = <fs_key>-Customerid
+                                                                                    environment = <fs_key>-Environment .
+
+    CHECK sy-subrc = 0.
+
+    clear: lv_response, lv_error.
+    call function 'ZINN_F_CALL_ODATA_METADATA'
+    exporting
+    iv_base_url = <ls_installations>-serviceurl
+    iv_username = <fs_key>-%param-username
+    iv_password = <fs_key>-%param-password
+    importing
+    ev_response =  lv_response
+    ev_error =  lv_error.
+
+     IF lv_response is not initial.
+      APPEND VALUE #( applicationid = <ls_installations>-applicationid
+      %msg = new_message_with_text( text = lv_response
+                                    severity = if_abap_behv_message=>severity-information )
+       ) TO reported-installations.
+      endif.
+
+    if lv_error is not initial.
+      APPEND VALUE #( applicationid = <ls_installations>-applicationid
+      %msg = new_message_with_text( text = lv_error
+                                    severity = if_abap_behv_message=>severity-error )
+       ) TO reported-installations.
+
+      APPEND VALUE #( %key = <fs_key>-%key
+                        applicationid = <ls_installations>-applicationid
+                        customerid = <ls_installations>-customerid
+                        environment = <ls_installations>-environment
+                         ) TO failed-installations.
+     endif.
+
+    ENDLOOP.
+
+     result = VALUE #( FOR ls_installations IN lt_installations ( applicationid = ls_installations-applicationid
+                                                                 customerid = ls_installations-customerid
+                                                                 environment = ls_installations-environment
+                                                      %param = ls_installations ) ).
 
 
   ENDMETHOD.

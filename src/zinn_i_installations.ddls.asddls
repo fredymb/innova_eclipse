@@ -17,6 +17,7 @@ on $projection.Customerid = _customers.Customerid
     installationstart as Installationstart,
     installationend as Installationend,
     installationurl as Installationurl,
+    serviceurl as Serviceurl,
     traininghours as Traininghours,
     @Semantics.user.createdBy: true
     createdby as Createdby,

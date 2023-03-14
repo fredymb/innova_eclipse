@@ -73,7 +73,9 @@ importance: #MEDIUM },
 { type: #FOR_ACTION, dataAction: 'ActivateInstallation', label:
   'Activate', invocationGrouping: #CHANGE_SET },
 { type: #FOR_ACTION, dataAction: 'DeactivateInstallation', label:
-  'Deactivate', invocationGrouping: #CHANGE_SET }
+  'Deactivate', invocationGrouping: #CHANGE_SET },
+{ type: #FOR_ACTION, dataAction: 'Metadata', label: 
+'Metadata', invocationGrouping: #CHANGE_SET }
 ],
 identification: [{ position: 50 }]}
 @Search.defaultSearchElement: true
@@ -107,6 +109,19 @@ url: 'Installationurl'
  }]}
 @Search.defaultSearchElement: true
 Installationurl;
+
+@UI: {
+lineItem: [{
+position: 85,
+importance: #MEDIUM,
+type: #WITH_URL,
+url: 'Serviceurl' }],
+identification: [{ position: 85,
+type: #WITH_URL,
+url: 'Serviceurl'
+ }]}
+@Search.defaultSearchElement: true
+Serviceurl;
 
  @UI: {
 lineItem: [{

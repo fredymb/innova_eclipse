@@ -43,4 +43,6 @@ etag master lastchangedat
   $self;
   action ( features : instance ) DeactivateInstallation result [1]
   $self;
+  action ( features : instance ) Metadata parameter ZINN_I_METADATA result [1]
+  $self;
 }

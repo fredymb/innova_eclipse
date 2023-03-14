@@ -53,6 +53,59 @@
       </RSFDO>
      </DOCUMENTATION>
     </item>
+    <item>
+     <FUNCNAME>ZINN_F_CALL_ODATA_METADATA</FUNCNAME>
+     <SHORT_TEXT>Call Odata Metadata</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_BASE_URL</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZINN_E_SERVICEURL</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_USERNAME</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZINN_E_USERNAME</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_PASSWORD</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZINN_E_PASSWORD</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>EV_RESPONSE</PARAMETER>
+       <TYP>STRING</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ERROR</PARAMETER>
+       <TYP>STRING</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_BASE_URL</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_USERNAME</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_PASSWORD</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_RESPONSE</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ERROR</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
    </FUNCTIONS>
   </asx:values>
  </asx:abap>

@@ -54,15 +54,15 @@ INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applica
  INSERT zinn_installs FROM TABLE @( value #( ( APPLICATIONID = 'SILI' CUSTOMERID = '001' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
                                                INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
                                                CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl
-                                               TRAININGHOURS = 10 )
+                                               TRAININGHOURS = 10 SERVICEURL = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
                                              ( APPLICATIONID = 'SILI' CUSTOMERID = '002' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
                                                INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
                                                CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl
-                                               TRAININGHOURS = 20 )
+                                               TRAININGHOURS = 20 SERVICEURL = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
                                              ( APPLICATIONID = 'SILI' CUSTOMERID = '003' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'ONPREM'
                                                INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
                                                CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl
-                                               TRAININGHOURS = 30 )
+                                               TRAININGHOURS = 30 SERVICEURL = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
 
  ) ).
 
@@ -70,7 +70,7 @@ COMMIT WORK AND WAIT.
 
 out->write( 'DONE!' ).
 
-*call function 'ZINN_F_CALL_ODATA_INITIALIZE'.
+*call function 'ZINN_F_CALL_ODATA_METADATA'.
 
 catch cx_root.
 
