@@ -45,4 +45,5 @@ etag master lastchangedat
   $self;
   action ( features : instance ) Metadata parameter ZINN_I_METADATA result [1]
   $self;
+  factory action ( features : instance ) Copyinstallation [1];
 }

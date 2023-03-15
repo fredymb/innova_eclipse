@@ -20,6 +20,8 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys FOR Installations~defaultUrl.
     METHODS Metadata FOR MODIFY
       IMPORTING keys FOR ACTION Installations~Metadata RESULT result.
+    METHODS Copyinstallation FOR MODIFY
+      IMPORTING keys FOR ACTION Installations~Copyinstallation.
 
 ENDCLASS.
 
@@ -148,7 +150,8 @@ CLASS lhc_installations IMPLEMENTATION.
                             ls_installations-installationstatus = 'I'
                             THEN if_abap_behv=>fc-o-disabled
                             ELSE if_abap_behv=>fc-o-enabled )
-                            %action-Metadata = if_abap_behv=>fc-o-enabled ) ).
+                            %action-Metadata = if_abap_behv=>fc-o-enabled
+                            %action-Copyinstallation = if_abap_behv=>fc-o-enabled ) ).
 
   ENDMETHOD.
 
@@ -162,6 +165,7 @@ CLASS lhc_installations IMPLEMENTATION.
                              %action-ActivateInstallation = if_abap_behv=>auth-allowed
                              %action-DeactivateInstallation = if_abap_behv=>auth-allowed
                              %action-Metadata = if_abap_behv=>auth-allowed
+                             %action-Copyinstallation = if_abap_behv=>auth-allowed
                             ).
 
     ENDLOOP.
@@ -173,6 +177,7 @@ CLASS lhc_installations IMPLEMENTATION.
     result-%action-ActivateInstallation = if_abap_behv=>auth-allowed.
     result-%action-DeactivateInstallation = if_abap_behv=>auth-allowed.
     result-%action-Metadata = if_abap_behv=>auth-allowed.
+    result-%action-Copyinstallation = if_abap_behv=>auth-allowed.
 
   ENDMETHOD.
 
@@ -327,6 +332,53 @@ LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_key>).
                                                                  environment = ls_installations-environment
                                                       %param = ls_installations ) ).
 
+
+  ENDMETHOD.
+
+  METHOD Copyinstallation.
+
+
+  DATA: lt_installations TYPE TABLE FOR CREATE zinn_i_applications\_installations,
+        lw_installations LIKE LINE OF lt_installations,
+        lv_cont(2) TYPE n.
+
+  " Read selected data from the frontend
+
+  READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+    ENTITY Installations
+    ALL FIELDS WITH CORRESPONDING #( keys )
+    RESULT DATA(installations)
+    FAILED failed.
+
+   LOOP AT installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
+
+  APPEND VALUE #(  applicationid = keys[ KEY entity %key = <fs_installations>-%key ]-Applicationid
+                   %target = VALUE #( (  %cid = keys[ KEY entity %key = <fs_installations>-%key ]-%cid
+                                      %is_draft = keys[ KEY entity %key = <fs_installations>-%key ]-%is_draft
+                                      %data = CORRESPONDING #( <fs_installations> ) ) )
+                 )
+
+                  to lt_installations ASSIGNING FIELD-SYMBOL(<fs_newinstallation>).
+
+                CLEAR lv_cont.
+                LOOP AT <fs_newinstallation>-%target ASSIGNING FIELD-SYMBOL(<fs_target>).
+                add 1 to lv_cont.
+                <fs_target>-environment = |{ <fs_target>-environment(1) }{ lv_cont }|.
+
+                ENDLOOP.
+
+   " Create BO instance by copy
+
+   MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+   ENTITY applications
+   CREATE by \_installations
+   FIELDS ( applicationid customerid environment installationtype  installationstatus installationstart installationend installationurl serviceurl traininghours )
+   WITH lt_installations
+   MAPPED DATA(mapped_create).
+
+   mapped-installations = mapped_create-installations.
+
+   ENDLOOP.
 
   ENDMETHOD.
 

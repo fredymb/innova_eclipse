@@ -75,7 +75,9 @@ importance: #MEDIUM },
 { type: #FOR_ACTION, dataAction: 'DeactivateInstallation', label:
   'Deactivate', invocationGrouping: #CHANGE_SET },
 { type: #FOR_ACTION, dataAction: 'Metadata', label: 
-'Metadata', invocationGrouping: #CHANGE_SET }
+'Metadata', invocationGrouping: #CHANGE_SET },
+{ type: #FOR_ACTION, dataAction: 'Copyinstallation', label: 
+'Copy', invocationGrouping: #CHANGE_SET }
 ],
 identification: [{ position: 50 }]}
 @Search.defaultSearchElement: true

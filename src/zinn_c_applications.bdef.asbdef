@@ -21,4 +21,5 @@ use association _applications;
 use action ActivateInstallation;
 use action Deactivateinstallation;
 use action Metadata;
+use action Copyinstallation;
 }
