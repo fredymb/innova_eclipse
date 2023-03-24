@@ -259,78 +259,78 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD Metadata.
 
-  data: lv_response TYPE string,
-        lv_error TYPE string.
+    DATA: lv_response TYPE string,
+          lv_error    TYPE string.
 
-DATA(lt_keys) = keys.
+    DATA(lt_keys) = keys.
 
-   READ ENTITIES OF zinn_i_applications IN LOCAL MODE
-    ENTITY Installations
-    ALL FIELDS WITH VALUE #( FOR key_row IN keys ( applicationid = key_row-applicationid
-                                                   customerid = key_row-customerid
-                                                   environment = key_row-environment ) )
-    RESULT DATA(lt_installations).
-
-
-
-LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_key>).
-
-    read table lt_installations ASSIGNING FIELD-SYMBOL(<ls_installations>) with key applicationid = <fs_key>-Applicationid
-                                                                                    customerid = <fs_key>-Customerid
-                                                                                    environment = <fs_key>-Environment .
-
-    CHECK sy-subrc = 0.
-
-    clear: lv_response, lv_error.
-    call function 'ZINN_F_CALL_ODATA_METADATA'
-    exporting
-    iv_base_url = <ls_installations>-serviceurl
-    iv_username = <fs_key>-%param-username
-    iv_password = <fs_key>-%param-password
-    importing
-    ev_response =  lv_response
-    ev_error =  lv_error.
+    READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+     ENTITY Installations
+     ALL FIELDS WITH VALUE #( FOR key_row IN keys ( applicationid = key_row-applicationid
+                                                    customerid = key_row-customerid
+                                                    environment = key_row-environment ) )
+     RESULT DATA(lt_installations).
 
 
 
-      IF lv_response is not initial.
-      cl_message_helper=>set_msg_vars_for_clike( lv_response ).
-      APPEND VALUE #( applicationid = <ls_installations>-applicationid
-        %msg = new_message( id = 'ZINNOVA'
-             number = '006'
-             v1 = sy-msgv1
-             v2 = sy-msgv2
-             v3 = sy-msgv3
-             v4 = sy-msgv4
-            severity = if_abap_behv_message=>severity-information )
-       ) TO reported-installations.
-      endif.
+    LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_key>).
 
-    if lv_error is not initial.
-       cl_message_helper=>set_msg_vars_for_clike( lv_error ).
-      APPEND VALUE #( applicationid = <ls_installations>-applicationid
-        %msg = new_message( id = 'ZINNOVA'
-             number = '006'
-             v1 = sy-msgv1
-             v2 = sy-msgv2
-             v3 = sy-msgv3
-             v4 = sy-msgv4
-            severity = if_abap_behv_message=>severity-information )
-       ) TO reported-installations.
+      READ TABLE lt_installations ASSIGNING FIELD-SYMBOL(<ls_installations>) WITH KEY applicationid = <fs_key>-Applicationid
+                                                                                      customerid = <fs_key>-Customerid
+                                                                                      environment = <fs_key>-Environment .
 
-      APPEND VALUE #( %key = <fs_key>-%key
-                        applicationid = <ls_installations>-applicationid
-                        customerid = <ls_installations>-customerid
-                        environment = <ls_installations>-environment
-                         ) TO failed-installations.
-     endif.
+      CHECK sy-subrc = 0.
+
+      CLEAR: lv_response, lv_error.
+      CALL FUNCTION 'ZINN_F_CALL_ODATA_METADATA'
+        EXPORTING
+          iv_base_url = <ls_installations>-serviceurl
+          iv_username = <fs_key>-%param-username
+          iv_password = <fs_key>-%param-password
+        IMPORTING
+          ev_response = lv_response
+          ev_error    = lv_error.
+
+
+
+      IF lv_response IS NOT INITIAL.
+        cl_message_helper=>set_msg_vars_for_clike( lv_response ).
+        APPEND VALUE #( applicationid = <ls_installations>-applicationid
+          %msg = new_message( id = 'ZINNOVA'
+               number = '006'
+               v1 = sy-msgv1
+               v2 = sy-msgv2
+               v3 = sy-msgv3
+               v4 = sy-msgv4
+              severity = if_abap_behv_message=>severity-information )
+         ) TO reported-installations.
+      ENDIF.
+
+      IF lv_error IS NOT INITIAL.
+        cl_message_helper=>set_msg_vars_for_clike( lv_error ).
+        APPEND VALUE #( applicationid = <ls_installations>-applicationid
+          %msg = new_message( id = 'ZINNOVA'
+               number = '006'
+               v1 = sy-msgv1
+               v2 = sy-msgv2
+               v3 = sy-msgv3
+               v4 = sy-msgv4
+              severity = if_abap_behv_message=>severity-information )
+         ) TO reported-installations.
+
+        APPEND VALUE #( %key = <fs_key>-%key
+                          applicationid = <ls_installations>-applicationid
+                          customerid = <ls_installations>-customerid
+                          environment = <ls_installations>-environment
+                           ) TO failed-installations.
+      ENDIF.
 
     ENDLOOP.
 
-     result = VALUE #( FOR ls_installations IN lt_installations ( applicationid = ls_installations-applicationid
-                                                                 customerid = ls_installations-customerid
-                                                                 environment = ls_installations-environment
-                                                      %param = ls_installations ) ).
+    result = VALUE #( FOR ls_installations IN lt_installations ( applicationid = ls_installations-applicationid
+                                                                customerid = ls_installations-customerid
+                                                                environment = ls_installations-environment
+                                                     %param = ls_installations ) ).
 
 
   ENDMETHOD.
@@ -338,47 +338,47 @@ LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_key>).
   METHOD Copyinstallation.
 
 
-  DATA: lt_installations TYPE TABLE FOR CREATE zinn_i_applications\_installations,
-        lw_installations LIKE LINE OF lt_installations,
-        lv_cont(2) TYPE n.
+    DATA: lt_installations TYPE TABLE FOR CREATE zinn_i_applications\_installations,
+          lw_installations LIKE LINE OF lt_installations,
+          lv_cont(2)       TYPE n.
 
-  " Read selected data from the frontend
+    " Read selected data from the frontend
 
-  READ ENTITIES OF zinn_i_applications IN LOCAL MODE
-    ENTITY Installations
-    ALL FIELDS WITH CORRESPONDING #( keys )
-    RESULT DATA(installations)
-    FAILED failed.
+    READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY Installations
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(installations)
+      FAILED failed.
 
-   LOOP AT installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
+    LOOP AT installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
 
-  APPEND VALUE #(  applicationid = keys[ KEY entity %key = <fs_installations>-%key ]-Applicationid
-                   %target = VALUE #( (  %cid = keys[ KEY entity %key = <fs_installations>-%key ]-%cid
-                                      %is_draft = keys[ KEY entity %key = <fs_installations>-%key ]-%is_draft
-                                      %data = CORRESPONDING #( <fs_installations> ) ) )
-                 )
+      APPEND VALUE #(  applicationid = keys[ KEY entity %key = <fs_installations>-%key ]-Applicationid
+                       %target = VALUE #( (  %cid = keys[ KEY entity %key = <fs_installations>-%key ]-%cid
+                                          %is_draft = keys[ KEY entity %key = <fs_installations>-%key ]-%is_draft
+                                          %data = CORRESPONDING #( <fs_installations> ) ) )
+                     )
 
-                  to lt_installations ASSIGNING FIELD-SYMBOL(<fs_newinstallation>).
+                      TO lt_installations ASSIGNING FIELD-SYMBOL(<fs_newinstallation>).
 
-                CLEAR lv_cont.
-                LOOP AT <fs_newinstallation>-%target ASSIGNING FIELD-SYMBOL(<fs_target>).
-                add 1 to lv_cont.
-                <fs_target>-environment = |{ <fs_target>-environment(1) }{ lv_cont }|.
+      CLEAR lv_cont.
+      LOOP AT <fs_newinstallation>-%target ASSIGNING FIELD-SYMBOL(<fs_target>).
+        ADD 1 TO lv_cont.
+        <fs_target>-environment = |{ <fs_target>-environment(1) }{ lv_cont }|.
 
-                ENDLOOP.
+      ENDLOOP.
 
-   " Create BO instance by copy
+      " Create BO instance by copy
 
-   MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
-   ENTITY applications
-   CREATE by \_installations
-   FIELDS ( applicationid customerid environment installationtype  installationstatus installationstart installationend installationurl serviceurl traininghours )
-   WITH lt_installations
-   MAPPED DATA(mapped_create).
+      MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY applications
+      CREATE BY \_installations
+      FIELDS ( applicationid customerid environment installationtype  installationstatus installationstart installationend installationurl serviceurl traininghours )
+      WITH lt_installations
+      MAPPED DATA(mapped_create).
 
-   mapped-installations = mapped_create-installations.
+      mapped-installations = mapped_create-installations.
 
-   ENDLOOP.
+    ENDLOOP.
 
   ENDMETHOD.
 
@@ -465,20 +465,20 @@ CLASS lhc_ZINN_I_APPLICATIONS IMPLEMENTATION.
 
   METHOD aboutapp.
 
-  READ ENTITIES OF zinn_i_applications
-      ENTITY applications
-      FIELDS ( applicationid )
-      WITH CORRESPONDING #( keys )
-      RESULT DATA(lt_applications).
+    READ ENTITIES OF zinn_i_applications
+        ENTITY applications
+        FIELDS ( applicationid )
+        WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_applications).
 
-DATA(ls_applications) = lt_applications[ 1 ].
+    DATA(ls_applications) = lt_applications[ 1 ].
 
-APPEND VALUE #( applicationid = ls_applications-applicationid
-      %msg = new_message( id = 'ZINNOVA'
-             number = '005'
-             v1 = ls_applications-applicationid
-            severity = if_abap_behv_message=>severity-information )
-       ) TO reported-applications.
+    APPEND VALUE #( applicationid = ls_applications-applicationid
+          %msg = new_message( id = 'ZINNOVA'
+                 number = '005'
+                 v1 = ls_applications-applicationid
+                severity = if_abap_behv_message=>severity-information )
+           ) TO reported-applications.
 
   ENDMETHOD.
 

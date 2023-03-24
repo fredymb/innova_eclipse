@@ -4,79 +4,81 @@ CLASS zinn_cl_build_data_model DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-  INTERFACES if_oo_adt_classrun.
+    INTERFACES if_oo_adt_classrun.
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
+CLASS zinn_cl_build_data_model IMPLEMENTATION.
 
 
-METHOD if_oo_adt_classrun~main.
+  METHOD if_oo_adt_classrun~main.
 
-try.
-DELETE from zinn_application.
-DELETE from zinn_apptext.
-DELETE FROM zinn_appdraft.
-DELETE from zinn_customers.
-DELETE FROM zinn_installs.
-DELETE FROM zinn_instdraft.
+    TRY.
+        DELETE FROM zinn_application.
+        DELETE FROM zinn_apptext.
+        DELETE FROM zinn_appdraft.
+        DELETE FROM zinn_customers.
+        DELETE FROM zinn_installs.
+        DELETE FROM zinn_instdraft.
+        DELETE FROM zinn_contacts.
+        DELETE FROM zinn_contdraft.
 
-get TIME STAMP FIELD data(lv_timestampl).
+        GET TIME STAMP FIELD DATA(lv_timestampl).
 
-INSERT zinn_application FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' applicationname = 'Intelligent Releases' createdby = sy-uname createdat = lv_timestampl
-                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl
-                                                  applicationimage = 'https://www.innovainternacional.biz/static/f5843731c15bf0f6e336eab3ca8ab622/0dab9/SiLI_Slide_1_Home.webp' )
-                                                ( APPLICATIONID = 'SIMP' applicationname = 'Planning Monitor' createdby = sy-uname createdat = lv_timestampl
-                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl
-                                                  applicationimage = 'https://www.innovainternacional.biz/static/a931683ac348f282ed052dbaab1a1b40/a66aa/1_SiMPL_Home.webp' )
-                                                ( APPLICATIONID = 'SIMA' applicationname = 'Warehouse Monitor' createdby = sy-uname createdat = lv_timestampl
-                                                  lastchangedby = sy-uname lastchangedat = lv_timestampl
-                                                  applicationimage = 'https://www.innovainternacional.biz/static/3008c6e5c73504c58ff62c7c4a11aa61/a6c4b/1_SiMA_Login.webp' )
- ) ).
+        INSERT zinn_application FROM TABLE @( VALUE #(  ( applicationid = 'SILI' applicationname = 'Intelligent Releases' createdby = sy-uname createdat = lv_timestampl
+                                                          lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                          applicationimage = 'https://www.innovainternacional.biz/static/f5843731c15bf0f6e336eab3ca8ab622/0dab9/SiLI_Slide_1_Home.webp' )
+                                                        ( applicationid = 'SIMP' applicationname = 'Planning Monitor' createdby = sy-uname createdat = lv_timestampl
+                                                          lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                          applicationimage = 'https://www.innovainternacional.biz/static/a931683ac348f282ed052dbaab1a1b40/a66aa/1_SiMPL_Home.webp' )
+                                                        ( applicationid = 'SIMA' applicationname = 'Warehouse Monitor' createdby = sy-uname createdat = lv_timestampl
+                                                          lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                          applicationimage = 'https://www.innovainternacional.biz/static/3008c6e5c73504c58ff62c7c4a11aa61/a6c4b/1_SiMA_Login.webp' )
+         ) ).
 
- INSERT zinn_apptext FROM TABLE @( value #(  ( APPLICATIONID = 'SILI' spras = 'E' APPLICATIONDESC = 'Intelligent Releases' )
-                                             ( APPLICATIONID = 'SILI' spras = 'S' APPLICATIONDESC = 'Liberaciones Inteligentes' )
-                                             ( APPLICATIONID = 'SIMP' SPRAS = 'E' APPLICATIONDESC = 'Planning Monitor')
-                                             ( APPLICATIONID = 'SIMP' SPRAS = 'S' APPLICATIONDESC = 'Monitor de Planificación')
-                                             ( APPLICATIONID = 'SIMA' SPRAS = 'E' APPLICATIONDESC =  'Warehouse Monitor')
-                                             ( APPLICATIONID = 'SIMA' SPRAS = 'S' APPLICATIONDESC =  'Monitor de Almacén')
- ) ).
+        INSERT zinn_apptext FROM TABLE @( VALUE #(  ( applicationid = 'SILI' spras = 'E' applicationdesc = 'Intelligent Releases' )
+                                                    ( applicationid = 'SILI' spras = 'S' applicationdesc = 'Liberaciones Inteligentes' )
+                                                    ( applicationid = 'SIMP' spras = 'E' applicationdesc = 'Planning Monitor')
+                                                    ( applicationid = 'SIMP' spras = 'S' applicationdesc = 'Monitor de Planificación')
+                                                    ( applicationid = 'SIMA' spras = 'E' applicationdesc =  'Warehouse Monitor')
+                                                    ( applicationid = 'SIMA' spras = 'S' applicationdesc =  'Monitor de Almacén')
+        ) ).
 
- INSERT zinn_customers FROM TABLE @( value #( ( CUSTOMERID = '001' CUSTOMERNAME = 'Arbomex' )
-                                              ( CUSTOMERID = '002' CUSTOMERNAME = 'Farma' )
-                                              ( CUSTOMERID = '003' CUSTOMERNAME = 'Enaex' )
+        INSERT zinn_customers FROM TABLE @( VALUE #( ( customerid = '001' customername = 'Arbomex' )
+                                                     ( customerid = '002' customername = 'Farma' )
+                                                     ( customerid = '003' customername = 'Enaex' )
 
- ) ).
+        ) ).
 
- INSERT zinn_installs FROM TABLE @( value #( ( APPLICATIONID = 'SILI' CUSTOMERID = '001' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
-                                               INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
-                                               CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl
-                                               TRAININGHOURS = 10 SERVICEURL = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
-                                             ( APPLICATIONID = 'SILI' CUSTOMERID = '002' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'FIORI'
-                                               INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
-                                               CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl
-                                               TRAININGHOURS = 20 SERVICEURL = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
-                                             ( APPLICATIONID = 'SILI' CUSTOMERID = '003' ENVIRONMENT = 'DEV' INSTALLATIONTYPE = 'ONPREM'
-                                               INSTALLATIONSTATUS = 'A' INSTALLATIONSTART = '20230101' INSTALLATIONEND = '20231201'
-                                               CREATEDBY = SY-UNAME CREATEDAT = lv_timestampl LASTCHANGEDBY = SY-UNAME LASTCHANGEDAT = lv_timestampl
-                                               TRAININGHOURS = 30 SERVICEURL = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
+        INSERT zinn_installs FROM TABLE @( VALUE #( ( applicationid = 'SILI' customerid = '001' environment = 'DEV' installationtype = 'FIORI'
+                                                      installationstatus = 'A' installationstart = '20230101' installationend = '20231201'
+                                                      createdby = sy-uname createdat = lv_timestampl lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                      traininghours = 10 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
+                                                    ( applicationid = 'SILI' customerid = '002' environment = 'DEV' installationtype = 'FIORI'
+                                                      installationstatus = 'A' installationstart = '20230101' installationend = '20231201'
+                                                      createdby = sy-uname createdat = lv_timestampl lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                      traininghours = 20 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
+                                                    ( applicationid = 'SILI' customerid = '003' environment = 'DEV' installationtype = 'ONPREM'
+                                                      installationstatus = 'A' installationstart = '20230101' installationend = '20231201'
+                                                      createdby = sy-uname createdat = lv_timestampl lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                      traininghours = 30 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
 
- ) ).
+        ) ).
 
-COMMIT WORK AND WAIT.
+        COMMIT WORK AND WAIT.
 
-out->write( 'DONE!' ).
+        out->write( 'DONE!' ).
 
 *call function 'ZINN_F_CALL_ODATA_METADATA'.
 
-catch cx_root.
+      CATCH cx_root.
 
-out->write( 'ERROR!' ).
+        out->write( 'ERROR!' ).
 
-endtry.
+    ENDTRY.
 
-ENDMETHOD.
+  ENDMETHOD.
 ENDCLASS.

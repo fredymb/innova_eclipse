@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service definition forZINN_C_CONTACTS'
+define service ZINN_SD_CONTACTS {
+  expose ZINN_C_CONTACTS as Contacts;
+}

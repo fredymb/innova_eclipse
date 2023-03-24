@@ -1,0 +1,50 @@
+managed implementation in class ZBP_INN_I_CONTACTS unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZINN_I_CONTACTS alias Contacts
+persistent table zinn_contacts
+draft table ZINN_CONTDRAFT
+etag master LocinstLastchangeTstmpl //LocinstLastchangeDate
+lock master total etag LastchangeTstmpl //LastchangeDate
+authorization master( global )
+early numbering
+
+{
+  field ( mandatory : create )
+   ContactID;
+
+  field ( readonly )
+   LastchangeDate,
+   LocinstLastchangeDate;
+
+  field ( readonly : update )
+   ContactID;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZINN_CONTACTS
+  {
+    ContactID = contactid;
+    Contactname = contactname;
+    Contactphone = contactphone;
+    Contactaddress = contactaddress;
+    LocinstLastchangeDate = locinst_lastchange_date;
+    LocinstLastchangeTime = locinst_lastchange_time;
+    LocinstLastchangeTstmpl = locinst_lastchange_tstmpl;
+    LocinstLastchangeUtcl = locinst_lastchange_utcl;
+    LastchangeDate = lastchange_date;
+    LastchangeTime = lastchange_time;
+    LastchangeTstmpl = lastchange_tstmpl;
+    LastchangeUtcl = lastchange_utcl;
+  }
+}
