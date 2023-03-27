@@ -31,6 +31,14 @@ early numbering
   draft action Discard;
   draft action Resume;
   draft determine action Prepare;
+  static factory action Createdefault[1];
+
+  determination defaultaddress on modify { field contactphone; }
+
+  side effects
+  {
+    field contactphone affects field contactaddress;
+  }
 
   mapping for ZINN_CONTACTS
   {

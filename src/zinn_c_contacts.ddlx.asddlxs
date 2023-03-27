@@ -17,7 +17,10 @@ annotate view ZINN_C_CONTACTS with
     position: 10 , 
     importance: #MEDIUM, 
     label: ''
-  } ]
+  },
+  { type: #FOR_ACTION, dataAction: 'Createdefault', label: 
+  'Create Default', invocationGrouping: #CHANGE_SET }
+ ]
   @UI.identification: [ {
     position: 10 , 
     label: ''

@@ -16,4 +16,5 @@ field ( readonly ) contactid;
   use action Discard;
   use action Resume;
   use action Prepare;
+  use action Createdefault;
 }

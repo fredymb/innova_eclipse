@@ -337,7 +337,6 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD Copyinstallation.
 
-
     DATA: lt_installations TYPE TABLE FOR CREATE zinn_i_applications\_installations,
           lw_installations LIKE LINE OF lt_installations,
           lv_cont(2)       TYPE n.
