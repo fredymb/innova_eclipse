@@ -64,6 +64,14 @@ applicationname;
 
 @UI: {
 lineItem: [{
+position: 23,
+importance: #HIGH }],
+identification: [{ position: 23 }]}
+@Search.defaultSearchElement: true
+Applicationdesc;
+
+@UI: {
+lineItem: [{
 position: 25,
 importance: #HIGH }],
 identification: [{ position: 25 }]}

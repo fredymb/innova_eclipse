@@ -495,6 +495,57 @@ ENDCLASS.
 CLASS lsc_ZINN_I_APPLICATIONS IMPLEMENTATION.
 
   METHOD save_modified.
+
+    DATA: lt_apptext TYPE STANDARD TABLE OF zinn_apptext,
+          lw_apptext TYPE zinn_apptext.
+
+    " Crear texto
+    CLEAR lt_apptext.
+    LOOP AT create-applications ASSIGNING FIELD-SYMBOL(<fs_create_applications>).
+      CLEAR lw_apptext.
+      lw_apptext-applicationid = <fs_create_applications>-applicationid.
+      lw_apptext-spras = sy-langu.
+      lw_apptext-applicationdesc = <fs_create_applications>-applicationdesc.
+      APPEND lw_apptext TO lt_apptext.
+    ENDLOOP.
+    IF lt_apptext IS NOT INITIAL.
+      TRY.
+          MODIFY zinn_apptext FROM TABLE @lt_apptext.
+        CATCH cx_root.
+      ENDTRY.
+    ENDIF.
+
+    " Modificar texto
+    CLEAR lt_apptext.
+    LOOP AT update-applications ASSIGNING FIELD-SYMBOL(<fs_update_applications>).
+      CLEAR lw_apptext.
+      lw_apptext-applicationid = <fs_update_applications>-applicationid.
+      lw_apptext-spras = sy-langu.
+      lw_apptext-applicationdesc = <fs_update_applications>-applicationdesc.
+      APPEND lw_apptext TO lt_apptext.
+    ENDLOOP.
+    IF lt_apptext IS NOT INITIAL.
+      TRY.
+          MODIFY zinn_apptext FROM TABLE @lt_apptext.
+        CATCH cx_root.
+      ENDTRY.
+    ENDIF.
+
+    " Eliminar texto
+    CLEAR lt_apptext.
+    LOOP AT delete-applications ASSIGNING FIELD-SYMBOL(<fs_delete_applications>).
+      CLEAR lw_apptext.
+      lw_apptext-applicationid = <fs_delete_applications>-applicationid.
+      lw_apptext-spras = sy-langu.
+      APPEND lw_apptext TO lt_apptext.
+    ENDLOOP.
+    IF lt_apptext IS NOT INITIAL.
+      TRY.
+          DELETE zinn_apptext FROM TABLE @lt_apptext.
+        CATCH cx_root.
+      ENDTRY.
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD cleanup_finalize.

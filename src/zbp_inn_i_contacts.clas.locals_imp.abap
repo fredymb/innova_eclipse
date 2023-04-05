@@ -44,7 +44,7 @@ CLASS lhc_contacts IMPLEMENTATION.
       WITH CORRESPONDING #( keys )
       RESULT DATA(lt_contacts).
 
-    LOOP AT lt_contacts ASSIGNING FIELD-SYMBOL(<fs_contacts>) WHERE contactphone IS NOT INITIAL.
+    LOOP AT lt_contacts ASSIGNING FIELD-SYMBOL(<fs_contacts>).
     SHIFT <fs_contacts>-Contactphone LEFT DELETING LEADING '0'.
       MODIFY ENTITIES OF zinn_i_contacts IN LOCAL MODE
       ENTITY contacts
