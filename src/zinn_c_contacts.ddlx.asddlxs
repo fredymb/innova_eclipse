@@ -60,6 +60,17 @@ annotate view ZINN_C_CONTACTS with
   } ]
   Contactaddress;
   
+  @UI.lineItem: [ {
+    position: 45 , 
+    importance: #MEDIUM, 
+    label: ''
+  } ]
+  @UI.identification: [ {
+    position: 45 , 
+    label: ''
+  } ]
+  Contactcourses; 
+  
   @UI.hidden: true
   LocinstLastchangeDate;
   

@@ -68,6 +68,41 @@ CLASS zinn_cl_build_data_model IMPLEMENTATION.
 
         ) ).
 
+        INSERT zinn_contacts FROM TABLE @( VALUE #( ( contactid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
+                                                      contactname  = 'John'
+                                                      contactphone = '300456789'
+                                                      contactaddress = 'Street 789'
+                                                      contactcourses = 10
+                                                      locinst_lastchange_date = lv_timestampl
+                                                      locinst_lastchange_time = sy-uzeit
+                                                      locinst_lastchange_tstmpl = lv_timestampl
+                                                      lastchange_date = lv_timestampl
+                                                      lastchange_time  = sy-uzeit
+                                                      lastchange_tstmpl = lv_timestampl )
+                                                     ( contactid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
+                                                      contactname  = 'Maria'
+                                                      contactphone = '3004567123'
+                                                      contactaddress = 'Street 123'
+                                                      contactcourses = 20
+                                                      locinst_lastchange_date = lv_timestampl
+                                                      locinst_lastchange_time = sy-uzeit
+                                                      locinst_lastchange_tstmpl = lv_timestampl
+                                                      lastchange_date = lv_timestampl
+                                                      lastchange_time  = sy-uzeit
+                                                      lastchange_tstmpl = lv_timestampl )
+                                                    ( contactid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
+                                                      contactname  = 'Etan'
+                                                      contactphone = '3004567090'
+                                                      contactaddress = 'Street 090'
+                                                      contactcourses = 30
+                                                      locinst_lastchange_date = lv_timestampl
+                                                      locinst_lastchange_time = sy-uzeit
+                                                      locinst_lastchange_tstmpl = lv_timestampl
+                                                      lastchange_date = lv_timestampl
+                                                      lastchange_time  = sy-uzeit
+                                                      lastchange_tstmpl = lv_timestampl )
+                                                     ) ).
+
         COMMIT WORK AND WAIT.
 
         out->write( 'DONE!' ).

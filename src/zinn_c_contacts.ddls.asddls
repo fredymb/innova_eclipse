@@ -10,6 +10,7 @@ define root view entity ZINN_C_CONTACTS
   Contactname,
   Contactphone,
   Contactaddress,
+  Contactcourses,
   LocinstLastchangeDate,
   LocinstLastchangeTime,
   LocinstLastchangeTstmpl,

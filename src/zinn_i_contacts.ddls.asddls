@@ -7,6 +7,7 @@ define root view entity ZINN_I_CONTACTS
   contactname as Contactname,
   contactphone as Contactphone,
   contactaddress as Contactaddress,
+  contactcourses as Contactcourses,
   @Semantics.systemDateTime.localInstanceLastChangedAt: true
   locinst_lastchange_date as LocinstLastchangeDate,
   locinst_lastchange_time as LocinstLastchangeTime,
