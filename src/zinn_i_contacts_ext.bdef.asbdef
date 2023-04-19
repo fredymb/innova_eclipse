@@ -1,0 +1,6 @@
+extension implementation in class zbp_inn_i_contacts_ext unique;
+
+extend behavior for Contacts
+{
+ validation ZZvalidateContactCourses on save  { create;update;  field Contactcourses; }
+}
