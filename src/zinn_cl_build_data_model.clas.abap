@@ -116,7 +116,7 @@ CLASS zinn_cl_build_data_model IMPLEMENTATION.
 
     ENDTRY.
 
-   " Create by Association
+    " Create by Association
 
     DATA: lt_applications  TYPE TABLE FOR CREATE zinn_i_applications,
           lt_installations TYPE TABLE FOR CREATE zinn_i_applications\_installations,
@@ -184,6 +184,97 @@ CLASS zinn_cl_build_data_model IMPLEMENTATION.
 *                output =
       ).
     ENDIF.
+
+    " Read Entity
+
+    READ ENTITY zinn_i_applications
+    FROM VALUE #( ( %tky-applicationid = 'SILI'
+                   %control = VALUE #( applicationid = if_abap_behv=>mk-on
+                                       applicationname = if_abap_behv=>mk-on
+                                       applicationdesc = if_abap_behv=>mk-on
+                                       applicationimage = if_abap_behv=>mk-on ) ) )
+    RESULT DATA(lt_applications2)
+    FAILED lt_failed
+    REPORTED lt_reported.
+
+    out->write(
+       EXPORTING
+         data   = 'Read Entity'
+*                name   =
+*              RECEIVING
+*                output =
+     ).
+
+    out->write(
+      EXPORTING
+        data   = lt_applications2
+*                name   =
+*              RECEIVING
+*                output =
+    ).
+
+    " Read multiple Entities
+
+    READ ENTITIES OF zinn_i_applications
+    ENTITY applications
+    ALL FIELDS WITH VALUE #( ( %tky-applicationid = 'SILI' ) )
+    RESULT lt_applications2
+    ENTITY applications
+    BY \_installations
+    ALL FIELDS WITH VALUE #( ( %tky-applicationid = 'SILI' ) )
+    RESULT DATA(lt_installations2)
+    FAILED lt_failed
+    REPORTED lt_reported.
+
+    out->write(
+   EXPORTING
+     data   = 'Read multiple Entities'
+*                name   =
+*              RECEIVING
+*                output =
+ ).
+
+    out->write(
+       EXPORTING
+         data   = lt_applications2
+*                name   =
+*              RECEIVING
+*                output =
+     ).
+
+
+    out->write(
+            EXPORTING
+              data   = lt_installations2
+*                name   =
+*              RECEIVING
+*                output =
+          ).
+
+    " Read by Association
+
+    READ ENTITIES OF zinn_i_applications
+    ENTITY applications BY \_installations
+    ALL FIELDS WITH VALUE #( ( %tky-applicationid = 'SILI' ) )
+    RESULT lt_installations2
+    LINK DATA(lt_link).
+
+    out->write(
+        EXPORTING
+          data   = 'Read by Association'
+*                name   =
+*              RECEIVING
+*                output =
+).
+
+    out->write(
+        EXPORTING
+          data   = lt_installations2
+*                name   =
+*              RECEIVING
+*                output =
+      ).
+
 
   ENDMETHOD.
 ENDCLASS.
