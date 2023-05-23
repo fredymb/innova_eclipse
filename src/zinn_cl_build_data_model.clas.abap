@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_build_data_model IMPLEMENTATION.
+CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
@@ -275,6 +275,58 @@ CLASS zinn_cl_build_data_model IMPLEMENTATION.
 *                output =
       ).
 
+
+    " Dynamic modify entities operations
+    DATA: lt_applications_create TYPE TABLE FOR CREATE zinn_i_applications,
+          lt_applications_update TYPE TABLE FOR UPDATE zinn_i_applications,
+          lt_applications_delete TYPE TABLE FOR UPDATE zinn_i_applications,
+          lt_operations          TYPE abp_behv_changes_tab,
+          lt_failed_operations   TYPE abp_behv_response_tab,
+          lt_reported_operations TYPE abp_behv_response_tab,
+          lt_mapped_operations   TYPE abp_behv_response_tab.
+
+    lt_applications_delete = VALUE #( ( %key-applicationid = 'SIPM' ) ).
+
+    lt_applications_create = VALUE #( ( %cid = 'applications'
+                         applicationid = 'SIPM'
+                         applicationname = 'Plant maintenance 2'
+                         applicationdesc = 'Plant maintenance 2'
+                         "applicationimage = 'https://www.innovainternacional.biz/static/f5843731c15bf0f6e336eab3ca8ab622/0dab9/SiLI_Slide_1_Home.webp'
+                         %control = VALUE #( applicationid = if_abap_behv=>mk-on
+                                             applicationname = if_abap_behv=>mk-on
+                                             applicationdesc = if_abap_behv=>mk-on
+                                             applicationimage = if_abap_behv=>mk-on ) ) ).
+
+    lt_applications_update = VALUE #( ( %cid_ref = 'applications'
+                          applicationid = 'SIPM'
+                          applicationname = 'Plant maintenance'
+                          %control = VALUE #( applicationname = if_abap_behv=>mk-on ) ) ).
+
+    lt_operations = VALUE #( ( op = if_abap_behv=>op-m-delete
+    entity_name = 'ZINN_I_APPLICATIONS'
+    instances = REF #( lt_applications_delete ) ) ).
+
+    MODIFY ENTITIES OPERATIONS lt_operations
+    FAILED lt_failed_operations
+    REPORTED lt_reported_operations
+    MAPPED lt_mapped_operations.
+
+    COMMIT ENTITIES.
+
+    CLEAR lt_operations.
+    lt_operations = VALUE #( ( op = if_abap_behv=>op-m-create
+                               entity_name = 'ZINN_I_APPLICATIONS'
+                               instances = REF #( lt_applications_create ) )
+                             ( op = if_abap_behv=>op-m-update
+                               entity_name = 'ZINN_I_APPLICATIONS'
+                               instances = REF #( lt_applications_update ) ) ).
+
+    MODIFY ENTITIES OPERATIONS lt_operations
+    FAILED lt_failed_operations
+    REPORTED lt_reported_operations
+    MAPPED lt_mapped_operations.
+
+    COMMIT ENTITIES.
 
   ENDMETHOD.
 ENDCLASS.
