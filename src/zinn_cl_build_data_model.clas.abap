@@ -328,5 +328,19 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
 
     COMMIT ENTITIES.
 
+    " Execute an action
+    MODIFY ENTITIES OF zinn_i_applications
+    ENTITY applications
+    EXECUTE aboutapp
+    FROM VALUE #( ( %key-applicationid = 'SILI') )
+    MAPPED lt_mapped
+    FAILED lt_failed
+    REPORTED lt_reported.
+
+    COMMIT ENTITIES
+    RESPONSE OF zinn_i_applications
+    FAILED DATA(lt_failed_commit)
+    REPORTED DATA(lt_reported_commit).
+
   ENDMETHOD.
 ENDCLASS.
