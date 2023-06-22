@@ -342,5 +342,16 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
     FAILED DATA(lt_failed_commit)
     REPORTED DATA(lt_reported_commit).
 
+    " Determine action
+    MODIFY ENTITIES OF zinn_i_applications
+    ENTITY installations
+    EXECUTE trigger_all
+    FROM VALUE #( ( %key-applicationid = 'SILI'
+                    %key-customerid = '001'
+                    %key-environment = 'DEV' ) )
+    MAPPED lt_mapped
+    FAILED lt_failed
+    REPORTED lt_reported.
+
   ENDMETHOD.
 ENDCLASS.

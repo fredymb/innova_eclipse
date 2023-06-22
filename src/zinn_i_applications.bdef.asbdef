@@ -33,11 +33,17 @@ etag master lastchangedat
   delete;
   association _applications { }
   validation validateDates on save  { create;update;  field installationstart, installationend; }
-  determination defaultStatus on modify { create; update; }
+  determination defaultStatus on save { create; }
   //side effects
   //{
   //  field installationtype affects field installationurl;
   //}
+
+  determine action trigger_all
+  {
+  determination ( always ) defaultStatus;
+  }
+
   determination defaultUrl on modify { field installationtype; }
   action ( features : instance ) ActivateInstallation result [1]
   $self;

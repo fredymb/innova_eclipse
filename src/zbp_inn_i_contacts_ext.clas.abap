@@ -1,4 +1,6 @@
 CLASS zbp_inn_i_contacts_ext DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zinn_i_contacts.
+protected section.
+private section.
 ENDCLASS.
 
 

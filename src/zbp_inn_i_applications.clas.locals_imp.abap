@@ -2,7 +2,7 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
   PRIVATE SECTION.
 
-    METHODS defaultStatus FOR DETERMINE ON MODIFY
+    METHODS defaultStatus FOR DETERMINE ON SAVE
       IMPORTING keys FOR Installations~defaultStatus.
     METHODS ActivateInstallation FOR MODIFY
       IMPORTING keys FOR ACTION Installations~ActivateInstallation RESULT result.
