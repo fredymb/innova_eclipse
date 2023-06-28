@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'MessagesText', 
+    typeNamePlural: 'MessagesTexts', 
+    title: {
+      type: #STANDARD, 
+      label: 'Messages Text', 
+      value: 'Langu'
+    }
+  }
+}
+annotate view ZINN_C_MessagesText with
+{
+  @UI.facet: [ {
+    id: 'ZINN_I_MessagesText', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Messages Text', 
+    position: 1 
+  } ]
+  @UI.identification: [ {
+    position: 1 , 
+    label: 'Langu'
+  } ]
+  @UI.lineItem: [ {
+    position: 1 , 
+    label: 'Langu'
+  } ]
+  Langu;
+  
+  @UI.identification: [ {
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Messagedesc;
+}

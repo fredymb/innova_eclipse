@@ -1,0 +1,50 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Messages', 
+    typeNamePlural: 'Messagess', 
+    title: {
+      type: #STANDARD, 
+      label: 'Messages', 
+      value: 'Messagecode'
+    }
+  }
+}
+annotate view ZINN_C_Messages with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZINN_I_Messages', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Messages', 
+    position: 1 
+  }, 
+  {
+    id: 'ZINN_I_MessagesText', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Messages Text', 
+    position: 2 , 
+    targetElement: '_MessagesText'
+  } ]
+  Messagecode;
+  
+  @UI.identification: [ {
+    position: 3 
+  } ]
+  LastChangedAt;
+  
+  @UI.identification: [ {
+    hidden: true, 
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Messagedesc;
+}

@@ -1,0 +1,101 @@
+managed with additional save implementation in class ZINN_BP_I_MESSAGES_S unique;
+strict;
+with draft;
+
+define behavior for ZINN_I_Messages_S alias MessagesAll
+draft table ZINN_MESSAGE_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _Messages { create ( features : instance ); with draft; }
+}
+
+define behavior for ZINN_I_Messages alias Messages
+persistent table ZINN_MESSAGES
+draft table ZINN_MESSAGES_D
+etag master LocalLastChangedAt
+lock dependent by _MessagesAll
+authorization dependent by _MessagesAll
+
+{
+  field ( mandatory : create )
+   Messagecode;
+
+  field ( readonly )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   Messagecode;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZINN_MESSAGES
+  {
+    Messagecode = MESSAGECODE;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MessagesAll { with draft; }
+  association _MessagesText { create ( features : global ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}
+
+define behavior for ZINN_I_MessagesText alias MessagesText
+persistent table ZINN_MSGSDESC
+draft table ZINN_MSGSDESC_D
+etag master LocalLastChangedAt
+lock dependent by _MessagesAll
+authorization dependent by _MessagesAll
+
+{
+  field ( mandatory : create )
+   Langu;
+
+  field ( readonly )
+   SingletonID,
+   Messagecode,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   Langu;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZINN_MSGSDESC
+  {
+    Langu = LANGU;
+    Messagecode = MESSAGECODE;
+    Messagedesc = MESSAGEDESC;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MessagesAll { with draft; }
+  association _Messages { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

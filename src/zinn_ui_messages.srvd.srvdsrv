@@ -1,0 +1,5 @@
+define service ZINN_UI_MESSAGES {
+  expose ZINN_C_MESSAGES_S as MessagesAll;
+  expose ZINN_C_MESSAGES as Messages;
+  expose ZINN_C_MESSAGESTEXT as MessagesText;
+}
