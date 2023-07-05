@@ -353,5 +353,10 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
     FAILED lt_failed
     REPORTED lt_reported.
 
+    " Selection with access control
+    SELECT *
+    FROM zinn_i_installations
+    INTO TABLE @DATA(lt_installations3).
+
   ENDMETHOD.
 ENDCLASS.

@@ -1,4 +1,4 @@
-@AccessControl.authorizationCheck: #NOT_REQUIRED
+@AccessControl.authorizationCheck: #CHECK // #NOT_REQUIRED
 @EndUserText.label: 'Installations'
 
 define view entity ZINN_I_INSTALLATIONS as select from zinn_installs

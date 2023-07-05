@@ -1,0 +1,4 @@
+@EndUserText.label: 'Vehicles'
+define service ZINN_SD_VEHICLES {
+  expose ZINN_C_VEHICLES;
+}

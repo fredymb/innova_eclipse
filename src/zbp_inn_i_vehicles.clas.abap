@@ -1,0 +1,5 @@
+CLASS zbp_inn_i_vehicles DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zinn_i_vehicles.
+ENDCLASS.
+
+CLASS zbp_inn_i_vehicles IMPLEMENTATION.
+ENDCLASS.

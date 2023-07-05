@@ -10,6 +10,7 @@ CLASS lhc_contacts DEFINITION INHERITING FROM cl_abap_behavior_handler.
                    IMPORTING keys FOR Contacts~defaultaddress,
              Createdefault FOR MODIFY
                    IMPORTING keys FOR ACTION Contacts~Createdefault.
+
 ENDCLASS.
 
 CLASS lhc_contacts IMPLEMENTATION.
@@ -61,23 +62,23 @@ CLASS lhc_contacts IMPLEMENTATION.
 
   METHOD Createdefault.
 
-  MODIFY ENTITIES OF zinn_i_contacts
-      ENTITY Contacts
-      CREATE FROM VALUE #( FOR <instance> IN KEYS (
-                           %cid = <instance>-%cid
-                           %is_draft = <instance>-%param-%is_draft
-                           contactid  = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
-                           contactname = 'Contact Name'
-                           contactphone = '1234567890'
-                           contactaddress = 'Contact Address'
-                           %control = VALUE #( contactid = if_abap_behv=>mk-on
-                                               contactname = if_abap_behv=>mk-on
-                                               contactphone = if_abap_behv=>mk-on
-                                               contactaddress = if_abap_behv=>mk-on )
-                           ) )
-                           MAPPED mapped
-                           FAILED failed
-                           REPORTED reported.
+    MODIFY ENTITIES OF zinn_i_contacts
+        ENTITY Contacts
+        CREATE FROM VALUE #( FOR <instance> IN keys (
+                             %cid = <instance>-%cid
+                             %is_draft = <instance>-%param-%is_draft
+                             contactid  = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
+                             contactname = 'Contact Name'
+                             contactphone = '1234567890'
+                             contactaddress = 'Contact Address'
+                             %control = VALUE #( contactid = if_abap_behv=>mk-on
+                                                 contactname = if_abap_behv=>mk-on
+                                                 contactphone = if_abap_behv=>mk-on
+                                                 contactaddress = if_abap_behv=>mk-on )
+                             ) )
+                             MAPPED mapped
+                             FAILED failed
+                             REPORTED reported.
 
   ENDMETHOD.
 

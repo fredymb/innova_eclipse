@@ -1,0 +1,11 @@
+@EndUserText.label: 'Installations'
+@MappingRole: true
+define role ZINN_AC_INSTALLATIONS {
+    grant
+        select
+            on
+                ZINN_I_INSTALLATIONS
+                    where
+                        installationtype = 'FIORI';
+                        
+}
