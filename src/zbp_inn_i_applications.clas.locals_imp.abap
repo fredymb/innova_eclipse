@@ -546,6 +546,9 @@ CLASS lsc_ZINN_I_APPLICATIONS IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
+    RAISE ENTITY EVENT zinn_i_applications~appcreated
+    FROM VALUE #( FOR <fs_appcreated> IN create-applications ( applicationid = <fs_appcreated>-applicationid ) ).
+
   ENDMETHOD.
 
   METHOD cleanup_finalize.

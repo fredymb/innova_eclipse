@@ -17,6 +17,8 @@ etag master lastchangedat
   delete;
   action aboutapp;
   association _installations { create; with draft;}
+  event appcreated;
+
 }
 
 define behavior for ZINN_I_INSTALLATIONS alias Installations
