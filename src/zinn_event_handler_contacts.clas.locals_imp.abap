@@ -13,26 +13,45 @@ CLASS lhe_handler IMPLEMENTATION.
 
   METHOD defaultcreated.
 
+    DATA ls_events TYPE zinn_events.
+
     GET TIME STAMP FIELD DATA(lv_timestamp).
 
+
     LOOP AT defaultcreated ASSIGNING FIELD-SYMBOL(<fs_defaultcreated>).
-*      MODIFY zinn_events FROM @( VALUE #( eventid = 'DEFAULTCREATED'
-*                                          createdby = sy-uname
-*                                          createdat = lv_timestamp
-*                                          comments = <fs_defaultcreated>-%param-comments ) ).
+
+      CLEAR ls_events.
+      ls_events = VALUE #( eventid = 'DEFAULTCREATED'
+                                            createdby = sy-uname
+                                            createdat = lv_timestamp
+                                            comments = <fs_defaultcreated>-%param-comments ).
+
+      CALL FUNCTION 'ZINN_F_UPDATE_EVENTS'
+        EXPORTING
+          is_events = ls_events.
+
     ENDLOOP.
 
   ENDMETHOD.
 
   METHOD zzdefaultcreated.
 
+    DATA ls_events TYPE zinn_events.
+
     GET TIME STAMP FIELD DATA(lv_timestamp).
 
     LOOP AT zzdefaultcreated ASSIGNING FIELD-SYMBOL(<fs_zzdefaultcreated>).
-*      MODIFY zinn_events FROM @( VALUE #( eventid = 'ZZDEFAULTCREATED'
-*                                          createdby = sy-uname
-*                                          createdat = lv_timestamp
-*                                          comments = <fs_zzdefaultcreated>-%param-AddInfo ) ).
+
+      CLEAR ls_events.
+      ls_events = VALUE #( eventid = 'ZZDEFAULTCREATED'
+                                            createdby = sy-uname
+                                            createdat = lv_timestamp
+                                            comments = <fs_zzdefaultcreated>-%param-AddInfo ).
+
+      CALL FUNCTION 'ZINN_F_UPDATE_EVENTS'
+        EXPORTING
+          is_events = ls_events.
+
     ENDLOOP.
 
   ENDMETHOD.
