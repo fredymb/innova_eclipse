@@ -3,4 +3,5 @@ extension implementation in class zbp_inn_i_contacts_ext unique;
 extend behavior for Contacts
 {
  validation ZZvalidateContactCourses on save  { create;update;  field Contactcourses; }
+ managed event ZZDefaultCreated on DefaultCreated parameter zinn_i_contacts_add;
 }

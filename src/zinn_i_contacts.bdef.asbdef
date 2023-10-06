@@ -8,6 +8,7 @@ extensible
   with validations on save; }
 
 define behavior for ZINN_I_CONTACTS alias Contacts extensible
+with additional save
 persistent table zinn_contacts
 draft table ZINN_CONTDRAFT
 etag master LocinstLastchangeTstmpl //LocinstLastchangeDate
@@ -37,6 +38,7 @@ early numbering
   draft action Resume;
   draft determine action Prepare extensible;
   static factory action Createdefault[1];
+  event DefaultCreated parameter zinn_i_comments;
 
   determination defaultaddress on modify { field contactphone; }
 

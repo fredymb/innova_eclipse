@@ -1,3 +1,23 @@
+CLASS lsc_zinn_i_contacts DEFINITION INHERITING FROM cl_abap_behavior_saver.
+
+  PROTECTED SECTION.
+
+    METHODS save_modified REDEFINITION.
+
+ENDCLASS.
+
+CLASS lsc_zinn_i_contacts IMPLEMENTATION.
+
+  METHOD save_modified.
+
+    RAISE ENTITY EVENT zinn_i_contacts~defaultcreated
+    FROM VALUE #( FOR <fs_create_contacts> IN create-contacts ( contactid = <fs_create_contacts>-contactid
+                                                                %param = VALUE #( comments = 'Comments' ) ) ).
+
+  ENDMETHOD.
+
+ENDCLASS.
+
 CLASS lhc_contacts DEFINITION INHERITING FROM cl_abap_behavior_handler.
   PRIVATE SECTION.
     METHODS: get_global_authorizations FOR GLOBAL AUTHORIZATION
@@ -6,10 +26,10 @@ CLASS lhc_contacts DEFINITION INHERITING FROM cl_abap_behavior_handler.
       RESULT result,
       earlynumbering_create FOR NUMBERING
         IMPORTING entities FOR CREATE Contacts,
-             defaultaddress FOR DETERMINE ON MODIFY
-                   IMPORTING keys FOR Contacts~defaultaddress,
-             Createdefault FOR MODIFY
-                   IMPORTING keys FOR ACTION Contacts~Createdefault.
+      defaultaddress FOR DETERMINE ON MODIFY
+        IMPORTING keys FOR Contacts~defaultaddress,
+      Createdefault FOR MODIFY
+        IMPORTING keys FOR ACTION Contacts~Createdefault.
 
 ENDCLASS.
 
@@ -46,7 +66,7 @@ CLASS lhc_contacts IMPLEMENTATION.
       RESULT DATA(lt_contacts).
 
     LOOP AT lt_contacts ASSIGNING FIELD-SYMBOL(<fs_contacts>).
-    SHIFT <fs_contacts>-Contactphone LEFT DELETING LEADING '0'.
+      SHIFT <fs_contacts>-Contactphone LEFT DELETING LEADING '0'.
       MODIFY ENTITIES OF zinn_i_contacts IN LOCAL MODE
       ENTITY contacts
       UPDATE FIELDS ( contactaddress )
@@ -62,12 +82,16 @@ CLASS lhc_contacts IMPLEMENTATION.
 
   METHOD Createdefault.
 
+    DATA lv_contactid TYPE zinn_e_contactid.
+
+    lv_contactid =  cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( ).
+
     MODIFY ENTITIES OF zinn_i_contacts
         ENTITY Contacts
         CREATE FROM VALUE #( FOR <instance> IN keys (
                              %cid = <instance>-%cid
                              %is_draft = <instance>-%param-%is_draft
-                             contactid  = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
+                             contactid  = lv_contactid
                              contactname = 'Contact Name'
                              contactphone = '1234567890'
                              contactaddress = 'Contact Address'
@@ -81,5 +105,6 @@ CLASS lhc_contacts IMPLEMENTATION.
                              REPORTED reported.
 
   ENDMETHOD.
+
 
 ENDCLASS.
