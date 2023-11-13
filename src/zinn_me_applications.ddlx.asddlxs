@@ -10,7 +10,6 @@ value: 'applicationid' }
 }
 }
  
- 
 annotate view ZINN_C_APPLICATIONS
     with 
 {

@@ -1,13 +1,4 @@
-unmanaged implementation in class zbp_inn_i_vehicles unique;
-strict ( 1 );
-
-define behavior for ZINN_I_VEHICLES //alias <alias_name>
-//late numbering
-lock master
-authorization master ( instance )
-//etag master <field_name>
+unmanaged;
+define behavior for ZINN_I_VEHICLES
 {
-  create;
-  update;
-  delete;
 }

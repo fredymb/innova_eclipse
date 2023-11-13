@@ -1,9 +1,4 @@
-projection;
-strict ( 1 );
-
-define behavior for ZINN_C_VEHICLES //alias <alias_name>
+unmanaged;
+define behavior for ZINN_C_VEHICLES
 {
-  use create;
-  use update;
-  use delete;
 }

@@ -5,6 +5,7 @@
     typeNamePlural: 'Contactss'
   }
 }
+@Search.searchable: true
 annotate view ZINN_C_CONTACTS with
 {
   @UI.facet: [ {
@@ -36,6 +37,8 @@ annotate view ZINN_C_CONTACTS with
     position: 20 , 
     label: ''
   } ]
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.7
   Contactname;
   
   @UI.lineItem: [ {
@@ -47,6 +50,8 @@ annotate view ZINN_C_CONTACTS with
     position: 30 , 
     label: ''
   } ]
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.7
   Contactphone;
   
   @UI.lineItem: [ {
@@ -58,6 +63,8 @@ annotate view ZINN_C_CONTACTS with
     position: 40 , 
     label: ''
   } ]
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.7
   Contactaddress;
   
   @UI.lineItem: [ {
@@ -69,6 +76,7 @@ annotate view ZINN_C_CONTACTS with
     position: 45 , 
     label: ''
   } ]
+  @Search.defaultSearchElement: true  
   Contactcourses; 
   
   @UI.hidden: true

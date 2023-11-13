@@ -1,4 +1,10 @@
-CLASS zbp_inn_i_vehicles DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zinn_i_vehicles.
+class ZBP_INN_I_VEHICLES definition
+  public
+  create private .
+
+public section.
+protected section.
+private section.
 ENDCLASS.
 
 

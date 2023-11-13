@@ -1,11 +1,10 @@
-CLASS zinn_cl_applications_test DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class ZINN_CL_APPLICATIONS_TEST definition
+  public
+  create private .
 
-  PUBLIC SECTION.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+public section.
+protected section.
+private section.
 ENDCLASS.
 
 

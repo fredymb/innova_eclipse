@@ -1,13 +1,16 @@
 @EndUserText.label: 'Applications'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @Metadata.allowExtensions: true
+@Search.searchable: true
 
 define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS {
  //   @ObjectModel.text.element: ['Applicationdesc']
     key applicationid,
-    applicationname,
-    Applicationdesc,
-    
+    @Search.defaultSearchElement: true
+    applicationname,    
+    @Search.defaultSearchElement: true
+    @Search.fuzzinessThreshold: 0.7
+    Applicationdesc,    
     @Semantics.largeObject: { 
     mimeType: 'mimetype',
     fileName: 'filename',
@@ -30,5 +33,6 @@ define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS
    
     @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZINN_CL_INSTALLATIONS_ACTIVES'
     @EndUserText.label: 'Actives Installations'
+    @Search.defaultSearchElement: false       
     virtual Installationsactives : abap.int4
 }

@@ -10,7 +10,6 @@
     <OUTPUTLEN>000128</OUTPUTLEN>
     <DDTEXT>Filename</DDTEXT>
     <DOMMASTER>E</DOMMASTER>
-    <ABAP_LANGUAGE_VERSION>5</ABAP_LANGUAGE_VERSION>
    </DD01V>
   </asx:values>
  </asx:abap>

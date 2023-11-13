@@ -1,8 +1,6 @@
 class ZINN_BP_I_MESSAGES_S definition
   public
-  abstract
-  final
-  for behavior of ZINN_I_MESSAGES_S .
+  create private .
 
 public section.
 protected section.

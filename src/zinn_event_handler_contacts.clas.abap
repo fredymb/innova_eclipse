@@ -1,15 +1,13 @@
-CLASS zinn_event_handler_contacts DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC
-  FOR EVENTS OF zinn_i_contacts.
+class ZINN_EVENT_HANDLER_CONTACTS definition
+  public
+  create private .
 
-  PUBLIC SECTION.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+public section.
+protected section.
+private section.
 ENDCLASS.
 
 
 
-CLASS zinn_event_handler_contacts IMPLEMENTATION.
+CLASS ZINN_EVENT_HANDLER_CONTACTS IMPLEMENTATION.
 ENDCLASS.

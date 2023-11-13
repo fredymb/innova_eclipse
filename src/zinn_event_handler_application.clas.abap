@@ -1,15 +1,13 @@
-CLASS zinn_event_handler_application DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC
-  FOR EVENTS OF zinn_i_applications.
+class ZINN_EVENT_HANDLER_APPLICATION definition
+  public
+  create private .
 
-  PUBLIC SECTION.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+public section.
+protected section.
+private section.
 ENDCLASS.
 
 
 
-CLASS zinn_event_handler_application IMPLEMENTATION.
+CLASS ZINN_EVENT_HANDLER_APPLICATION IMPLEMENTATION.
 ENDCLASS.

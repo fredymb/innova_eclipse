@@ -1,11 +1,12 @@
-FUNCTION zinn_f_update_events.
-*"----------------------------------------------------------------------
+FUNCTION ZINN_F_UPDATE_EVENTS.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
 *"     REFERENCE(IS_EVENTS) TYPE  ZINN_EVENTS
-*"----------------------------------------------------------------------
-  cl_abap_tx=>save(  ).
+*"--------------------------------------------------------------------
 
-  MODIFY zinn_events FROM @is_events.
+
+
+
 
 ENDFUNCTION.

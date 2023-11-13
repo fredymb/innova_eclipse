@@ -1,40 +1,4 @@
-projection implementation in class ZINN_BP_C_MESSAGES_S unique;
-strict;
-use draft;
-
-define behavior for ZINN_C_Messages_S alias MessagesAll
-
+unmanaged;
+define behavior for ZINN_C_MESSAGES_S
 {
-  use action Edit;
-  use action Activate;
-  use action Discard;
-  use action Resume;
-  use action Prepare;
-  use action SelectCustomizingTransptReq;
-
-  use association _Messages { create ( augment ); with draft; }
-}
-
-define behavior for ZINN_C_Messages alias Messages
-
-{
-  field ( modify )
-   Messagedesc;
-
-
-  use update( augment );
-  use delete;
-
-  use association _MessagesAll { with draft; }
-  use association _MessagesText { create; with draft; }
-}
-
-define behavior for ZINN_C_MessagesText alias MessagesText
-
-{
-  use update;
-  use delete;
-
-  use association _MessagesAll { with draft; }
-  use association _Messages { with draft; }
 }
