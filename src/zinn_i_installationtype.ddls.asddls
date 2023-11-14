@@ -7,6 +7,7 @@
     sizeCategory: #S,
     dataClass: #MIXED
 }
+@Search.searchable: true
 define view entity ZINN_I_INSTALLATIONTYPE 
        as select from DDCDS_CUSTOMER_DOMAIN_VALUE_T( p_domain_name: 'ZINN_D_INSTALLATIONTYPE') {
     @UI.hidden: true  
@@ -16,8 +17,11 @@ define view entity ZINN_I_INSTALLATIONTYPE
     @Semantics.language: true
     @UI.hidden: true  
     key language,
+    @Search.defaultSearchElement: true   
     value_low,
     @Semantics.text: true
+    @Search.defaultSearchElement: true 
+    @Search.fuzzinessThreshold: 0.7
     text
 }
 where language = $session.system_language
