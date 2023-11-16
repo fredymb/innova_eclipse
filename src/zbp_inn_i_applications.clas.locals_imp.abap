@@ -22,6 +22,8 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys FOR ACTION Installations~Metadata RESULT result.
     METHODS Copyinstallation FOR MODIFY
       IMPORTING keys FOR ACTION Installations~Copyinstallation.
+    METHODS GetDefaultsForMetadata FOR READ
+      IMPORTING keys FOR FUNCTION Installations~GetDefaultsForMetadata RESULT result.
 
 ENDCLASS.
 
@@ -376,6 +378,28 @@ CLASS lhc_installations IMPLEMENTATION.
       MAPPED DATA(mapped_create).
 
       mapped-installations = mapped_create-installations.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD GetDefaultsForMetadata.
+
+  READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY Installations
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(installations)
+      FAILED failed.
+
+    LOOP AT installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
+    APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+
+    <fs_result>-%is_draft = <fs_installations>-%is_draft.
+    <fs_result>-%key = <fs_installations>-%key.
+    <fs_result>-%pky = <fs_installations>-%pky.
+    <fs_result>-%tky = <fs_installations>-%tky.
+
+    <fs_result>-%param-username = |'USERNAME_' { <fs_installations>-Applicationid }|.
 
     ENDLOOP.
 
