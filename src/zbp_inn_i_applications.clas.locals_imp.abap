@@ -24,6 +24,8 @@ CLASS lhc_installations DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys FOR ACTION Installations~Copyinstallation.
     METHODS GetDefaultsForMetadata FOR READ
       IMPORTING keys FOR FUNCTION Installations~GetDefaultsForMetadata RESULT result.
+    METHODS totalTraininghours FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR Installations~totalTraininghours.
 
 ENDCLASS.
 
@@ -402,6 +404,41 @@ CLASS lhc_installations IMPLEMENTATION.
     <fs_result>-%param-username = |'USERNAME_' { <fs_installations>-Applicationid }|.
 
     ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD totalTraininghours.
+
+  READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+      ENTITY Installations
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(installations).
+
+      CHECK ( installations is not initial ).
+
+      DATA(applicationid) = installations[ 1 ]-Applicationid.
+
+    READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+        ENTITY Applications
+        BY \_installations
+        ALL FIELDS WITH
+        VALUE #( ( %tky-applicationid = applicationid
+                            %is_draft = if_abap_behv=>mk-on ) )
+        RESULT DATA(app_installations).
+
+       DATA(total_traininghours) = 0.
+       LOOP AT app_installations ASSIGNING FIELD-SYMBOL(<app_installations>).
+       total_traininghours += <app_installations>-traininghours.
+       ENDLOOP.
+
+       MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+        ENTITY Applications
+        UPDATE FROM VALUE #( ( %tky-applicationid = applicationid
+                               %is_draft = if_abap_behv=>mk-on
+                               %data-traininghours = total_traininghours
+                               %control-traininghours = if_abap_behv=>mk-on ) )
+       FAILED DATA(failed)
+       REPORTED DATA(reported2).
 
   ENDMETHOD.
 

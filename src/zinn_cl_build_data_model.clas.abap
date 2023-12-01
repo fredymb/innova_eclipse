@@ -30,7 +30,7 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
         GET TIME STAMP FIELD DATA(lv_timestampl).
 
         INSERT zinn_application FROM TABLE @( VALUE #(  ( applicationid = 'SILI' applicationname = 'Intelligent Releases' createdby = sy-uname createdat = lv_timestampl
-                                                          lastchangedby = sy-uname lastchangedat = lv_timestampl
+                                                          lastchangedby = sy-uname lastchangedat = lv_timestampl traininghours = 90
                                                           applicationimage = 'https://www.innovainternacional.biz/static/f5843731c15bf0f6e336eab3ca8ab622/0dab9/SiLI_Slide_1_Home.webp' )
                                                         ( applicationid = 'SIMP' applicationname = 'Planning Monitor' createdby = sy-uname createdat = lv_timestampl
                                                           lastchangedby = sy-uname lastchangedat = lv_timestampl
@@ -57,15 +57,15 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
         INSERT zinn_installs FROM TABLE @( VALUE #( ( applicationid = 'SILI' customerid = '001' environment = 'DEV' installationtype = 'FIORI'
                                                       installationstatus = 'A' installationstart = '20230101' installationend = '20231201'
                                                       createdby = sy-uname createdat = lv_timestampl lastchangedby = sy-uname lastchangedat = lv_timestampl
-                                                      traininghours = 10 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
+                                                      traininghours = 20 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
                                                     ( applicationid = 'SILI' customerid = '002' environment = 'DEV' installationtype = 'FIORI'
                                                       installationstatus = 'A' installationstart = '20230101' installationend = '20231201'
                                                       createdby = sy-uname createdat = lv_timestampl lastchangedby = sy-uname lastchangedat = lv_timestampl
-                                                      traininghours = 20 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
+                                                      traininghours = 30 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
                                                     ( applicationid = 'SILI' customerid = '003' environment = 'DEV' installationtype = 'ONPREM'
                                                       installationstatus = 'A' installationstart = '20230101' installationend = '20231201'
                                                       createdby = sy-uname createdat = lv_timestampl lastchangedby = sy-uname lastchangedat = lv_timestampl
-                                                      traininghours = 30 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
+                                                      traininghours = 40 serviceurl = 'http://54.92.201.218:8001/sap/opu/odata/SIAPP/X_ODATA_SRV/' )
 
         ) ).
 

@@ -12,6 +12,7 @@ authorization master ( global, instance )
 etag master lastchangedat
 {
   //field ( readonly ) applicationdesc;
+  field ( readonly ) traininghours;
   create;
   update;
   delete;
@@ -45,6 +46,9 @@ etag master lastchangedat
   {
   determination ( always ) defaultStatus;
   }
+
+  determination totalTraininghours on modify { create; update; field traininghours; }
+  // side effects { field traininghours affects field _applications.traininghours; }
 
   determination defaultUrl on modify { field installationtype; }
   action ( features : instance ) ActivateInstallation result [1]

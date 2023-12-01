@@ -99,6 +99,14 @@ identification: [{ position: 70 }]}
 @Search.defaultSearchElement: true
 Installationend;
 
+@UI: {
+lineItem: [{
+position: 75,
+importance: #MEDIUM }],
+identification: [{ position: 75 }]}
+@Search.defaultSearchElement: true
+Traininghours;
+
  @UI: {
 lineItem: [{
 position: 80,
@@ -124,13 +132,5 @@ url: 'Serviceurl'
  }]}
 @Search.defaultSearchElement: true
 Serviceurl;
-
- @UI: {
-lineItem: [{
-position: 90,
-importance: #MEDIUM }],
-identification: [{ position: 90 }]}
-@Search.defaultSearchElement: true
-Traininghours;
     
 }

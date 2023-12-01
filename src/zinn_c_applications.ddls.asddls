@@ -20,6 +20,7 @@ define root view entity ZINN_C_APPLICATIONS as projection on ZINN_I_APPLICATIONS
     applicationguide,
     @Semantics.imageUrl: true
     applicationimage,
+    traininghours,
     mimetype,
     filename,
  //   Applicationdesc,

@@ -71,6 +71,15 @@ Applicationdesc;
 
 @UI: {
 lineItem: [{
+position: 24,
+importance: #HIGH }],
+identification: [{ position: 24 }]}
+@Search.defaultSearchElement: true
+traininghours;
+
+
+@UI: {
+lineItem: [{
 position: 25,
 importance: #HIGH }],
 identification: [{ position: 25 }]}

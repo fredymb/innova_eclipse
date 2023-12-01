@@ -10,6 +10,7 @@ use etag
   use delete;
   use action aboutapp;
   use association _installations{ create; }
+
 }
 
 define behavior for ZINN_C_INSTALLATIONS alias Installations

@@ -12,6 +12,7 @@ composition [0..*] of ZINN_I_INSTALLATIONS as _installations
     _applicationstext[ Spras = $session.system_language ].Applicationdesc,     
     applicationguide,
     applicationimage,
+    traininghours,
     mimetype,    
     filename,
     @Semantics.user.createdBy: true
