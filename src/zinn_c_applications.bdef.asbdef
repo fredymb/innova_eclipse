@@ -1,11 +1,11 @@
-projection;
+projection implementation in class zbp_inn_c_applications unique;
 //strict ( 1 );
 //use side effects;
 use draft;
 define behavior for ZINN_C_APPLICATIONS alias Applications
 use etag
 {
-  use create;
+  use create ( augment );
   use update;
   use delete;
   use action aboutapp;
