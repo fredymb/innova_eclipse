@@ -50,6 +50,12 @@
      <MSGNR>007</MSGNR>
      <TEXT>Contact courses must be greater than 0</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZINNOVA</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Contact name is required</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

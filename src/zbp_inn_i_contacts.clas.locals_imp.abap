@@ -29,7 +29,9 @@ CLASS lhc_contacts DEFINITION INHERITING FROM cl_abap_behavior_handler.
       defaultaddress FOR DETERMINE ON MODIFY
         IMPORTING keys FOR Contacts~defaultaddress,
       Createdefault FOR MODIFY
-        IMPORTING keys FOR ACTION Contacts~Createdefault.
+        IMPORTING keys FOR ACTION Contacts~Createdefault,
+      ValidateContactname FOR VALIDATE ON SAVE
+        IMPORTING keys FOR Contacts~ValidateContactname.
 
 ENDCLASS.
 
@@ -106,5 +108,44 @@ CLASS lhc_contacts IMPLEMENTATION.
 
   ENDMETHOD.
 
+
+  METHOD ValidateContactname.
+
+    READ ENTITY zinn_i_contacts\\contacts
+           FIELDS ( contactname )
+           WITH CORRESPONDING #( keys )
+           RESULT DATA(lt_contacts).
+
+    LOOP AT lt_contacts ASSIGNING FIELD-SYMBOL(<fs_contacts>).
+
+    "Initialize State Area
+    reported-contacts = VALUE #( ( %key = <fs_contacts>-%key
+                                   %is_draft = <fs_contacts>-%is_draft
+                                   %tky = <fs_contacts>-%tky
+                                   %state_area = 'VALIDATE_CONTACTNAME' ) ).
+
+      IF <fs_contacts>-contactname IS INITIAL.
+
+        APPEND VALUE #( %key = <fs_contacts>-%key
+                        %is_draft = <fs_contacts>-%is_draft
+                        %tky = <fs_contacts>-%tky
+                        contactid = <fs_contacts>-contactid ) TO failed-contacts.
+
+        " Contact name is required
+        APPEND VALUE #( %key = <fs_contacts>-%key
+                        %is_draft = <fs_contacts>-%is_draft
+                        %tky = <fs_contacts>-%tky
+                        %state_area = 'VALIDATE_CONTACTNAME'
+        %msg = new_message( id = 'ZINNOVA'
+                            number = '008'
+                           severity = if_abap_behv_message=>severity-error )
+        %element-contactname = if_abap_behv=>mk-on ) TO reported-contacts.
+
+      ENDIF.
+
+    ENDLOOP.
+
+
+  ENDMETHOD.
 
 ENDCLASS.

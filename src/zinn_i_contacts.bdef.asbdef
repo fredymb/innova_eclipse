@@ -33,12 +33,14 @@ early numbering
   delete;
 
   draft action Edit;
-  draft action Activate;
+  draft action Activate optimized;
   draft action Discard;
   draft action Resume;
-  draft determine action Prepare extensible;
+  draft determine action Prepare extensible { validation ValidateContactname; }
   static factory action Createdefault[1];
   event DefaultCreated parameter zinn_i_comments;
+
+  validation ValidateContactname on save { create;update;  field Contactname; }
 
   determination defaultaddress on modify { field contactphone; }
 
