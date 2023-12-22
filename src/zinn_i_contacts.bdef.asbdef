@@ -55,6 +55,7 @@ early numbering
     Contactname = contactname;
     Contactphone = contactphone;
     Contactaddress = contactaddress;
+    Contactcourses = contactcourses;
     LocinstLastchangeDate = locinst_lastchange_date;
     LocinstLastchangeTime = locinst_lastchange_time;
     LocinstLastchangeTstmpl = locinst_lastchange_tstmpl;

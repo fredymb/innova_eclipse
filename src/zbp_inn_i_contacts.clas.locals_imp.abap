@@ -38,6 +38,7 @@ ENDCLASS.
 CLASS lhc_contacts IMPLEMENTATION.
   METHOD get_global_authorizations.
     result-%action-edit = if_abap_behv=>auth-allowed.
+    result-%action-Createdefault  = if_abap_behv=>auth-allowed.
   ENDMETHOD.
 
   METHOD earlynumbering_create.

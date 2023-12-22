@@ -1,8 +1,10 @@
 projection;
 strict ( 2 );
+extensible;
 use draft;
 
 define behavior for ZINN_C_CONTACTS alias Contacts
+extensible
 use etag
 
 {
