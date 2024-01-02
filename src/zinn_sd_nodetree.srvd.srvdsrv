@@ -1,0 +1,4 @@
+@EndUserText.label: 'Node Tree'
+define service ZINN_SD_NODETREE {
+  expose ZINN_C_NODETREE;
+}

@@ -1,0 +1,45 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: {
+                     typeName: 'Node Tree',
+                     typeNamePlural: 'Node Tree',
+                     title: { type: #STANDARD, value: 'Nodeid' }
+                   },
+       presentationVariant: [{
+           sortOrder: [{ by: 'Nodeid', direction: #ASC }],
+           visualizations: [{type: #AS_LINEITEM}]
+         }]
+     }
+annotate view ZINN_C_NODETREE
+    with 
+{
+   @UI: {
+      facet:          [
+                       { id:            'Employee',
+                         purpose:       #STANDARD,
+                         type:          #IDENTIFICATION_REFERENCE,
+                         label:         'Employee',
+                         position:      10
+                       }
+                      ]
+    }
+
+  @UI: {
+      selectionField: [{ position: 10 }],
+      lineItem:       [{ position: 10 }],
+      identification: [{ position: 10 }]      
+    }
+    Nodeid;
+    @UI: {
+      selectionField: [{ position: 20 }],
+      lineItem:       [{ position: 20 }],
+      identification: [{ position: 20 }]
+    }
+    Nodename;
+    @UI: {
+      selectionField: [{ position: 30 }],
+      lineItem:       [{ position: 30 }],
+      identification: [{ position: 30 }]
+    }
+    Nodeparent;  
+   }

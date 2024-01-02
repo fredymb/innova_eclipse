@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
+CLASS zinn_cl_build_data_model IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
@@ -25,7 +25,7 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
         DELETE FROM zinn_instdraft.
         DELETE FROM zinn_contacts.
         DELETE FROM zinn_contdraft.
-
+        DELETE FROM zinn_nodetree.
 
         GET TIME STAMP FIELD DATA(lv_timestampl).
 
@@ -69,6 +69,7 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
 
         ) ).
 
+
         INSERT zinn_contacts FROM TABLE @( VALUE #( ( contactid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
                                                       contactname  = 'John'
                                                       contactphone = '300456789'
@@ -80,7 +81,7 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
                                                       lastchange_date = lv_timestampl
                                                       lastchange_time  = sy-uzeit
                                                       lastchange_tstmpl = lv_timestampl )
-                                                     ( contactid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
+                                                    ( contactid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( )
                                                       contactname  = 'Maria'
                                                       contactphone = '3004567123'
                                                       contactaddress = 'Street 123'
@@ -103,6 +104,28 @@ CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
                                                       lastchange_time  = sy-uzeit
                                                       lastchange_tstmpl = lv_timestampl )
                                                      ) ).
+
+
+        DATA: lt_nodetree TYPE TABLE OF zinn_nodetree,
+              lv_parent   TYPE zinn_e_nodeparent,
+              lv_nodeid   TYPE zinn_e_nodeid.
+
+* Puedes ajustar el valor inicial según tus necesidades
+        lv_nodeid = 1.
+
+* Ciclo FOR para insertar 999 registros
+        DO 999 TIMES.
+          lv_parent = lv_nodeid / 5.
+
+          APPEND VALUE #( nodeid     = lv_nodeid
+                          nodename   = |Node { lv_nodeid }|
+                          nodeparent = lv_parent ) TO lt_nodetree.
+
+          lv_nodeid = lv_nodeid + 1.
+        ENDDO.
+
+* Insertar en la tabla zinn_nodetree
+        INSERT zinn_nodetree FROM TABLE @lt_nodetree.
 
         COMMIT WORK AND WAIT.
 
