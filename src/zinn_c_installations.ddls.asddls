@@ -16,11 +16,19 @@ define view entity ZINN_C_INSTALLATIONS as projection on ZINN_I_INSTALLATIONS {
     key Environment,
     @Search.defaultSearchElement: true
     @Search.fuzzinessThreshold: 0.7   
-    Customername,    
-    @Consumption.valueHelpDefinition: [{ entity:
-    {name: 'ZINN_I_INSTALLATIONTYPE' , element: 'value_low'},
-     distinctValues: true
-    }]
+    Customername,  
+    
+    @Consumption.valueHelpDefinition: 
+      [{ entity: { name : 'ZINN_I_DOMAIN_FIX_VAL' , element: 'low' } ,
+         additionalBinding: [{ element: 'domain_name',
+                               localConstant: 'ZINN_E_INSTALLATIONTYPE', usage: #FILTER }]
+                               , distinctValues: true
+                               }]  
+//    @Consumption.valueHelpDefinition: [{ entity:
+//    {name: 'ZINN_I_INSTALLATIONTYPE' , element: 'value_low'},
+//     distinctValues: true
+//    }]
+    
     @Search.defaultSearchElement: true
     Installationtype,    
     @Consumption.valueHelpDefinition: [{ entity:

@@ -1,4 +1,26 @@
-unmanaged;
-define behavior for ZINN_C_APPLICATIONS
+projection implementation in class zbp_inn_c_applications unique;
+//strict ( 1 );
+//use side effects;
+use draft;
+define behavior for ZINN_C_APPLICATIONS alias Applications
+use etag
 {
+  use create ( augment );
+  use update;
+  use delete;
+  use action aboutapp;
+  use association _installations{ create; }
+
+}
+
+define behavior for ZINN_C_INSTALLATIONS alias Installations
+use etag
+{
+use update;
+use delete;
+use association _applications;
+use action ActivateInstallation;
+use action Deactivateinstallation;
+use action Metadata;
+use action Copyinstallation;
 }

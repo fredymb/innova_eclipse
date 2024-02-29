@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_build_data_model IMPLEMENTATION.
+CLASS ZINN_CL_BUILD_DATA_MODEL IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

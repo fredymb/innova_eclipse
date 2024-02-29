@@ -4,9 +4,9 @@
   <asx:values>
    <SRVB>
     <METADATA>
-     <NAME>ZINN_SB_NODETREE</NAME>
+     <NAME>ZINN_SB_APPLICATIONS</NAME>
      <TYPE>SRVB/SVB</TYPE>
-     <DESCRIPTION>Node Tree</DESCRIPTION>
+     <DESCRIPTION>Applications</DESCRIPTION>
      <LANGUAGE>EN</LANGUAGE>
      <LINKS>
       <item>
@@ -15,7 +15,7 @@
        <TITLE>Historic versions</TITLE>
       </item>
       <item>
-       <HREF>/sap/bc/adt/businessservices/odatav4/ZINN_SB_NODETREE</HREF>
+       <HREF>/sap/bc/adt/businessservices/odatav4/ZINN_SB_APPLICATIONS</HREF>
        <REL>http://www.sap.com/categories/odatav4</REL>
        <TYPE>application/vnd.sap.adt.businessservices.odatav4.v1+xml</TYPE>
        <TITLE>ODATAV4</TITLE>
@@ -38,27 +38,33 @@
        <TYPE>application/vnd.sap.adt.businessservices.semanticversion.v1+xml</TYPE>
        <TITLE>SemanticVersion</TITLE>
       </item>
+      <item>
+       <HREF>./zinn_sb_applications</HREF>
+       <REL>http://www.sap.com/adt/relations/source</REL>
+       <TYPE>text/html</TYPE>
+       <TITLE>Landing Page (HTML)</TITLE>
+      </item>
      </LINKS>
      <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
      <ABAP_LANGU_VERSION>5</ABAP_LANGU_VERSION>
     </METADATA>
     <CONTENT>
      <BIND_TYPE_IMPL>
-      <NAME>ZINN_SB_NODETREE</NAME>
+      <NAME>ZINN_SB_APPLICATIONS</NAME>
      </BIND_TYPE_IMPL>
      <BIND_TYPE>ODATA</BIND_TYPE>
      <BIND_TYPE_VERSION>V4</BIND_TYPE_VERSION>
      <SERVICES>
       <item>
-       <SERVICE_NAME>ZINN_SD_NODETREE</SERVICE_NAME>
+       <SERVICE_NAME>ZINN_SD_APPLICATIONS</SERVICE_NAME>
        <SERVICE_CONTENT>
         <item>
          <SERVICE_VERSION>0001</SERVICE_VERSION>
          <RELEASE_STATE>NOT_RELEASED</RELEASE_STATE>
          <SRVD_REF>
-          <URI>/sap/bc/adt/ddic/srvd/sources/zinn_sd_nodetree</URI>
+          <URI>/sap/bc/adt/ddic/srvd/sources/zinn_sd_applications</URI>
           <TYPE>SRVD/SRV</TYPE>
-          <NAME>ZINN_SD_NODETREE</NAME>
+          <NAME>ZINN_SD_APPLICATIONS</NAME>
          </SRVD_REF>
          <BIND_TYPE_DATA>
           <CONTENT>
