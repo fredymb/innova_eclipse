@@ -1,7 +1,7 @@
 @EndUserText.label: 'Applications'
 define service ZINN_SD_APPLICATIONS {
-  expose ZINN_C_APPLICATIONS as Applications;
+  expose ZINN_C_APPLICATIONS     as Applications;
   expose ZINN_I_APPLICATIONSTEXT as Applicationstext;
-  expose ZINN_I_CUSTOMERS as Customers;
-  expose ZINN_C_INSTALLATIONS as Installations;
+  expose ZINN_I_CUSTOMERS        as Customers;
+  expose ZINN_C_INSTALLATIONS    as Installations;
 }

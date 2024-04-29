@@ -387,21 +387,21 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD GetDefaultsForMetadata.
 
-  READ ENTITIES OF zinn_i_applications IN LOCAL MODE
-      ENTITY Installations
-      ALL FIELDS WITH CORRESPONDING #( keys )
-      RESULT DATA(installations)
-      FAILED failed.
+    READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+        ENTITY Installations
+        ALL FIELDS WITH CORRESPONDING #( keys )
+        RESULT DATA(installations)
+        FAILED failed.
 
     LOOP AT installations ASSIGNING FIELD-SYMBOL(<fs_installations>).
-    APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+      APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
 
-    <fs_result>-%is_draft = <fs_installations>-%is_draft.
-    <fs_result>-%key = <fs_installations>-%key.
-    <fs_result>-%pky = <fs_installations>-%pky.
-    <fs_result>-%tky = <fs_installations>-%tky.
+      <fs_result>-%is_draft = <fs_installations>-%is_draft.
+      <fs_result>-%key = <fs_installations>-%key.
+      <fs_result>-%pky = <fs_installations>-%pky.
+      <fs_result>-%tky = <fs_installations>-%tky.
 
-    <fs_result>-%param-username = |'USERNAME_' { <fs_installations>-Applicationid }|.
+      <fs_result>-%param-username = |'USERNAME_' { <fs_installations>-Applicationid }|.
 
     ENDLOOP.
 
@@ -409,14 +409,14 @@ CLASS lhc_installations IMPLEMENTATION.
 
   METHOD totalTraininghours.
 
-  READ ENTITIES OF zinn_i_applications IN LOCAL MODE
-      ENTITY Installations
-      ALL FIELDS WITH CORRESPONDING #( keys )
-      RESULT DATA(installations).
+    READ ENTITIES OF zinn_i_applications IN LOCAL MODE
+        ENTITY Installations
+        ALL FIELDS WITH CORRESPONDING #( keys )
+        RESULT DATA(installations).
 
-      CHECK ( installations is not initial ).
+    CHECK ( installations IS NOT INITIAL ).
 
-      DATA(applicationid) = installations[ 1 ]-Applicationid.
+    DATA(applicationid) = installations[ 1 ]-Applicationid.
 
     READ ENTITIES OF zinn_i_applications IN LOCAL MODE
         ENTITY Applications
@@ -426,19 +426,19 @@ CLASS lhc_installations IMPLEMENTATION.
                             %is_draft = if_abap_behv=>mk-on ) )
         RESULT DATA(app_installations).
 
-       DATA(total_traininghours) = 0.
-       LOOP AT app_installations ASSIGNING FIELD-SYMBOL(<app_installations>).
-       total_traininghours += <app_installations>-traininghours.
-       ENDLOOP.
+    DATA(total_traininghours) = 0.
+    LOOP AT app_installations ASSIGNING FIELD-SYMBOL(<app_installations>).
+      total_traininghours += <app_installations>-traininghours.
+    ENDLOOP.
 
-       MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
-        ENTITY Applications
-        UPDATE FROM VALUE #( ( %tky-applicationid = applicationid
-                               %is_draft = if_abap_behv=>mk-on
-                               %data-traininghours = total_traininghours
-                               %control-traininghours = if_abap_behv=>mk-on ) )
-       FAILED DATA(failed)
-       REPORTED DATA(reported2).
+    MODIFY ENTITIES OF zinn_i_applications IN LOCAL MODE
+     ENTITY Applications
+     UPDATE FROM VALUE #( ( %tky-applicationid = applicationid
+                            %is_draft = if_abap_behv=>mk-on
+                            %data-traininghours = total_traininghours
+                            %control-traininghours = if_abap_behv=>mk-on ) )
+    FAILED DATA(failed)
+    REPORTED DATA(reported2).
 
   ENDMETHOD.
 
@@ -609,6 +609,12 @@ CLASS lsc_ZINN_I_APPLICATIONS IMPLEMENTATION.
 
     RAISE ENTITY EVENT zinn_i_applications~appcreated
     FROM VALUE #( FOR <fs_appcreated> IN create-applications ( applicationid = <fs_appcreated>-applicationid ) ).
+
+    "Background process
+    DATA lo_demo_bgpf_starter TYPE REF TO zinn_cl_demo_bgpf_starter.
+    lo_demo_bgpf_starter = NEW zinn_cl_demo_bgpf_starter(  ).
+    lo_demo_bgpf_starter->main(  ).
+
 
   ENDMETHOD.
 
