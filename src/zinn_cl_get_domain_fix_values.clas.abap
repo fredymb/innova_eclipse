@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_get_domain_fix_values IMPLEMENTATION.
+CLASS ZINN_CL_GET_DOMAIN_FIX_VALUES IMPLEMENTATION.
 
 
   METHOD if_rap_query_provider~select.

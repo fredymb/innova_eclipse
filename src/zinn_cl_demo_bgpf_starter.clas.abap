@@ -14,7 +14,8 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_demo_bgpf_starter IMPLEMENTATION.
+CLASS ZINN_CL_DEMO_BGPF_STARTER IMPLEMENTATION.
+
 
   METHOD main.
     DATA lo_operation       TYPE REF TO if_bgmc_op_single.
@@ -44,5 +45,4 @@ CLASS zinn_cl_demo_bgpf_starter IMPLEMENTATION.
 
     ENDTRY.
   ENDMETHOD.
-
 ENDCLASS.

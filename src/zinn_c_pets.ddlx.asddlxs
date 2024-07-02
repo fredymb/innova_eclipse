@@ -1,0 +1,196 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'Petname'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'Petname'
+annotate view ZINN_C_PETS with
+{
+  @UI.facet: [ {
+    label: 'General Information',
+    id: 'GeneralInfo',
+    purpose: #STANDARD,
+    position: 10 ,
+    type: #IDENTIFICATION_REFERENCE
+  } ]
+  @UI.identification: [ {
+    position: 10 ,
+    label: 'Pet Name'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 ,
+    label: 'Pet Name'
+  } ]
+  @UI.selectionField: [ {
+    position: 10
+  } ]
+  Petname;
+
+  @UI.identification: [ {
+    position: 20 ,
+    label: 'Pet Type'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 ,
+    label: 'Pet Type'
+  } ]
+  @UI.selectionField: [ {
+    position: 20
+  } ]
+  Pettype;
+
+  @UI.identification: [ {
+    position: 30 ,
+    label: 'Pet Age'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 ,
+    label: 'Pet Age'
+  } ]
+  @UI.selectionField: [ {
+    position: 30
+  } ]
+  Petage;
+
+  @UI.identification: [ {
+    position: 40 ,
+    label: 'Pet Owner'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 ,
+    label: 'Pet Owner'
+  } ]
+  @UI.selectionField: [ {
+    position: 40
+  } ]
+  Petowner;
+
+  //  @UI.identification: [ {
+  //    position: 50 ,
+  //    label: 'Created By'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 50 ,
+  //    label: 'Created By'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 50
+  //  } ]
+  //  CreatedBy;
+  //
+  //  @UI.identification: [ {
+  //    position: 60 ,
+  //    label: 'Changed By'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 60 ,
+  //    label: 'Changed By'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 60
+  //  } ]
+  //  ChangedBy;
+  //
+  //  @UI.identification: [ {
+  //    position: 70 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 70 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 70
+  //  } ]
+  //  LocinstLastchangeDate;
+  //
+  //  @UI.identification: [ {
+  //    position: 80 ,
+  //    label: 'Changed At'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 80 ,
+  //    label: 'Changed At'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 80
+  //  } ]
+  //  LocinstLastchangeTime;
+  //
+  //  @UI.identification: [ {
+  //    position: 90 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 90 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 90
+  //  } ]
+  //  LocinstLastchangeTstmpl;
+  //
+  //  @UI.identification: [ {
+  //    position: 100 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 100 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 100
+  //  } ]
+  //  LocinstLastchangeUtcl;
+  //
+  //  @UI.identification: [ {
+  //    position: 110 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 110 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 110
+  //  } ]
+  //  LastchangeDate;
+  //
+  //  @UI.identification: [ {
+  //    position: 120 ,
+  //    label: 'Changed At'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 120 ,
+  //    label: 'Changed At'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 120
+  //  } ]
+  //  LastchangeTime;
+  //
+  //  @UI.identification: [ {
+  //    position: 130 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 130 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 130
+  //  } ]
+  //  LastchangeTstmpl;
+  //
+  //  @UI.identification: [ {
+  //    position: 140 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 140 ,
+  //    label: 'Changed On'
+  //  } ]
+  //  @UI.selectionField: [ {
+  //    position: 140
+  //  } ]
+  //  LastchangeUtcl;
+}

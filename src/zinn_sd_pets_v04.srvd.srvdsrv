@@ -1,0 +1,11 @@
+@EndUserText: {
+  label: 'Service Definition for ZINN_C_PETS'
+}
+@ObjectModel: {
+  leadingEntity: {
+    name: 'ZINN_C_PETS'
+  }
+}
+define service ZINN_SD_PETS_V04 provider contracts odata_v4_ui {
+  expose ZINN_C_PETS as Pets;
+}

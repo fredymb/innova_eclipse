@@ -26,11 +26,13 @@ ENDCLASS.
 
 
 
-CLASS zinn_cl_demo_bgpf_operation IMPLEMENTATION.
+CLASS ZINN_CL_DEMO_BGPF_OPERATION IMPLEMENTATION.
+
 
   METHOD constructor.
     mv_data = iv_data.
   ENDMETHOD.
+
 
   METHOD if_bgmc_op_single~execute.
     modify( ).
@@ -40,6 +42,7 @@ CLASS zinn_cl_demo_bgpf_operation IMPLEMENTATION.
     save( ).
   ENDMETHOD.
 
+
   METHOD modify.
     IF mv_data IS INITIAL.
 *            RAISE EXCEPTION NEW cx_demo_bgpf( textid = cx_demo_bgpf=>initial_input ).
@@ -48,6 +51,7 @@ CLASS zinn_cl_demo_bgpf_operation IMPLEMENTATION.
     CONDENSE mv_data.
   ENDMETHOD.
 
+
   METHOD save.
 
     MODIFY zinn_demo_bgpf FROM @( VALUE #( data       = mv_data
@@ -55,6 +59,4 @@ CLASS zinn_cl_demo_bgpf_operation IMPLEMENTATION.
                       change_at = sy-datum
                       change_tm = sy-uzeit ) ).
   ENDMETHOD.
-
-
 ENDCLASS.

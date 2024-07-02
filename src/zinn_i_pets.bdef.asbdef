@@ -1,0 +1,54 @@
+managed implementation in class ZINN_BP_I_PETS unique;
+strict ( 2 );
+with draft;
+define behavior for ZINN_I_PETS alias Pets
+persistent table ZINN_PETS
+draft table ZINN_PETS_D
+etag master LocinstLastchangeTstmpl
+lock master total etag LastchangeTstmpl
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   Petname;
+
+  field ( readonly )
+   CreatedBy,
+   ChangedBy,
+   LocinstLastchangeDate,
+   LocinstLastchangeTstmpl,
+   LastchangeDate,
+   LastchangeTstmpl;
+
+  field ( readonly : update )
+   Petname;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZINN_PETS
+  {
+    Petname = petname;
+    Pettype = pettype;
+    Petage = petage;
+    Petowner = petowner;
+    CreatedBy = created_by;
+    ChangedBy = changed_by;
+    LocinstLastchangeDate = locinst_lastchange_date;
+    LocinstLastchangeTime = locinst_lastchange_time;
+    LocinstLastchangeTstmpl = locinst_lastchange_tstmpl;
+    LocinstLastchangeUtcl = locinst_lastchange_utcl;
+    LastchangeDate = lastchange_date;
+    LastchangeTime = lastchange_time;
+    LastchangeTstmpl = lastchange_tstmpl;
+    LastchangeUtcl = lastchange_utcl;
+  }
+}
